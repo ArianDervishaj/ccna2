@@ -1,0 +1,248 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding-top: 80px;
+    /* Space for fixed header */
+}
+
+/* Sticky Score Header */
+.score-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+.score-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#score-correct {
+    color: #28a745;
+}
+
+#score-wrong {
+    color: #dc3545;
+}
+
+.progress-bar {
+    height: 4px;
+    background: #eee;
+    margin-top: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #3498db;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* Quiz Container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Question Card */
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.q-title {
+    font-weight: bold;
+    color: #3498db;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.q-img {
+    max-width: 100%;
+    height: auto;
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Options */
+.options {
+    list-style: none;
+    padding: 0;
+}
+
+.option {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.option:hover {
+    background-color: #f8f9fa;
+}
+
+.option.selected {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+}
+
+/* Logic States */
+.card.answered .option {
+    cursor: default;
+    pointer-events: none;
+    /* Disable clicking after answer */
+}
+
+.option.correct {
+    background-color: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+}
+
+.option.wrong {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+/* Buttons and Explanation */
+.btn-check {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.btn-check:hover {
+    background-color: #2980b9;
+}
+
+.explanation {
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #fff3cd;
+    border-left: 5px solid #ffc107;
+    color: #856404;
+    border-radius: 4px;
+}
+
+/* ... keep your body and score-bar styles ... */
+
+.q-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.q-title {
+    font-weight: bold;
+    color: #3498db;
+}
+
+.q-hint {
+    font-size: 0.85em;
+    color: #666;
+    background: #eee;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.option {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    /* Flexbox for icon alignment */
+    align-items: center;
+    gap: 10px;
+}
+
+/* Create the fake Radio/Checkbox icon using ::before */
+.option::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ccc;
+    background: white;
+    flex-shrink: 0;
+}
+
+/* SINGLE SELECT (Radio Style - Circle) */
+[data-type="single"] .option::before {
+    border-radius: 50%;
+    /* Circle */
+}
+
+/* MULTI SELECT (Checkbox Style - Square) */
+[data-type="multi"] .option::before {
+    border-radius: 4px;
+    /* Square */
+}
+
+/* Selected State */
+.option.selected {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+}
+
+.option.selected::before {
+    background-color: #2196f3;
+    border-color: #2196f3;
+    /* Optional: Add a checkmark or dot here if you want to be fancy */
+    box-shadow: inset 0 0 0 3px white;
+    /* Makes a white dot inside blue circle */
+}
+
+/* Correct/Wrong Colors */
+.option.correct {
+    background-color: #d4edda;
+    border-color: #28a745;
+}
+
+.option.correct::before {
+    background-color: #28a745;
+    border-color: #28a745;
+    box-shadow: inset 0 0 0 3px white;
+}
+
+.option.wrong {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+}
+
+.option.wrong::before {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    box-shadow: inset 0 0 0 3px white;
+}
