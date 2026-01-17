@@ -46,12 +46,12 @@ let filteredQuiz = [];
 
 function applyFilterAndSort() {
     const allStats = loadStats();
-    
+
     // Filter
     filteredQuiz = quizData.filter(q => {
         const stats = allStats[q.id] || { attempts: 0, correct: 0 };
         const rate = stats.attempts > 0 ? stats.correct / stats.attempts : -1;
-        
+
         switch (currentFilter) {
             case 'struggling':
                 return stats.attempts > 0 && rate < 0.5;
@@ -63,7 +63,7 @@ function applyFilterAndSort() {
                 return true;
         }
     });
-    
+
     // Sort
     if (currentSort === 'success-rate') {
         filteredQuiz.sort((a, b) => {
@@ -79,7 +79,7 @@ function applyFilterAndSort() {
         // Default: shuffle
         filteredQuiz = shuffle(filteredQuiz);
     }
-    
+
     return filteredQuiz;
 }
 
@@ -95,6 +95,7 @@ const container = document.getElementById('quiz-container');
 const elCorrect = document.getElementById('score-correct');
 const elWrong = document.getElementById('score-wrong');
 const elRemaining = document.getElementById('score-remaining');
+const elPercentage = document.getElementById('score-percentage');
 const elProgress = document.getElementById('progress-fill');
 
 // Fisher-Yates shuffle
@@ -147,16 +148,16 @@ function updateFilterCounts() {
     let countStruggling = 0;
     let countUnanswered = 0;
     let countMastered = 0;
-    
+
     quizData.forEach(q => {
         const stats = allStats[q.id] || { attempts: 0, correct: 0 };
         const rate = stats.attempts > 0 ? stats.correct / stats.attempts : -1;
-        
+
         if (stats.attempts === 0) countUnanswered++;
         else if (rate < 0.5) countStruggling++;
         else if (rate > 0.9) countMastered++;
     });
-    
+
     const select = document.getElementById('filter-select');
     if (select) {
         select.options[0].text = `All (${countAll})`;
@@ -166,17 +167,17 @@ function updateFilterCounts() {
     }
 }
 
-window.changeFilter = function(value) {
+window.changeFilter = function (value) {
     currentFilter = value;
     reloadQuiz();
 };
 
-window.changeSort = function(value) {
+window.changeSort = function (value) {
     currentSort = value;
     reloadQuiz();
 };
 
-window.resetStats = function() {
+window.resetStats = function () {
     if (confirm('Are you sure you want to reset all statistics? This cannot be undone.')) {
         localStorage.removeItem(STORAGE_KEY);
         reloadQuiz();
@@ -204,6 +205,16 @@ function updateScoreboard() {
 
     const percentage = sessionStats.total > 0 ? (sessionStats.answered / sessionStats.total) * 100 : 0;
     elProgress.style.width = `${percentage}%`;
+
+    // Calculate correct percentage based on total questions (unanswered = wrong)
+    if (sessionStats.total > 0) {
+        const correctPct = Math.round((sessionStats.correct / sessionStats.total) * 100);
+        elPercentage.textContent = `${correctPct}%`;
+        elPercentage.className = correctPct >= 70 ? 'pct-good' : 'pct-bad';
+    } else {
+        elPercentage.textContent = '0%';
+        elPercentage.className = 'pct-bad';
+    }
 }
 
 function renderQuestions() {
@@ -211,7 +222,7 @@ function renderQuestions() {
         container.innerHTML = '<div class="no-questions">No questions match this filter.</div>';
         return;
     }
-    
+
     filteredQuiz.forEach((q, index) => {
         const card = document.createElement('div');
         card.className = 'card';
@@ -297,7 +308,7 @@ function renderMultipleChoice(card, q, index) {
 function renderMatchingQuestion(card, q, index) {
     const shuffledLeft = shuffle(q.pairs.map((p, i) => ({ text: p.left, originalIndex: i })));
     const shuffledRight = shuffle(q.pairs.map((p, i) => ({ text: p.right, originalIndex: i })));
-    
+
     const rightDistractors = q.distractors_right || q.distractors || [];
     if (rightDistractors.length > 0) {
         rightDistractors.forEach(d => {
@@ -307,7 +318,7 @@ function renderMatchingQuestion(card, q, index) {
         shuffledRight.length = 0;
         reshuffledRight.forEach(item => shuffledRight.push(item));
     }
-    
+
     const leftDistractors = q.distractors_left || [];
     if (leftDistractors.length > 0) {
         leftDistractors.forEach(d => {
@@ -324,7 +335,7 @@ function renderMatchingQuestion(card, q, index) {
         const rightIdx = shuffledRight.findIndex(r => r.originalIndex === leftItem.originalIndex);
         correctMapping[leftIdx] = rightIdx;
     });
-    
+
     const leftDistractorIndices = [];
     shuffledLeft.forEach((item, idx) => {
         if (item.originalIndex === -2) leftDistractorIndices.push(idx);
@@ -378,35 +389,35 @@ function renderMatchingQuestion(card, q, index) {
 // ========== MATCHING INTERACTION ==========
 let selectedLeft = {};
 
-window.selectMatchLeft = function(el, qIndex) {
+window.selectMatchLeft = function (el, qIndex) {
     const card = document.getElementById(`q-${qIndex}`);
     if (card.classList.contains('answered')) return;
 
     const container = document.getElementById(`match-${qIndex}`);
     const leftItems = container.querySelectorAll('.match-left');
-    
+
     leftItems.forEach(item => item.classList.remove('selected'));
     el.classList.add('selected');
     selectedLeft[qIndex] = el.dataset.idx;
 };
 
-window.selectMatchRight = function(el, qIndex) {
+window.selectMatchRight = function (el, qIndex) {
     const card = document.getElementById(`q-${qIndex}`);
     if (card.classList.contains('answered')) return;
-    
+
     if (selectedLeft[qIndex] === undefined || selectedLeft[qIndex] === '') return;
 
     const leftIdx = selectedLeft[qIndex];
     const rightIdx = el.dataset.idx;
 
     let userMatches = JSON.parse(card.dataset.userMatches);
-    
+
     for (let key in userMatches) {
         if (userMatches[key] === rightIdx) {
             delete userMatches[key];
         }
     }
-    
+
     userMatches[leftIdx] = rightIdx;
     card.dataset.userMatches = JSON.stringify(userMatches);
 
@@ -480,7 +491,7 @@ function updateMatchStatus(qIndex) {
     statusEl.textContent = `Matched: ${matchedPairs} / ${totalPairs}`;
 }
 
-window.checkMatchAnswer = function(qIndex) {
+window.checkMatchAnswer = function (qIndex) {
     const card = document.getElementById(`q-${qIndex}`);
     const questionId = parseInt(card.dataset.questionId);
     const container = document.getElementById(`match-${qIndex}`);
@@ -535,7 +546,7 @@ window.checkMatchAnswer = function(qIndex) {
         if (leftDistractorIndices.includes(parseInt(leftIdx))) {
             allCorrect = false;
             const rightIdx = userMatches[leftIdx];
-            
+
             if (svg) {
                 const line = svg.querySelector(`line[data-left="${leftIdx}"]`);
                 if (line) {
@@ -543,7 +554,7 @@ window.checkMatchAnswer = function(qIndex) {
                     line.setAttribute('stroke-width', '3');
                 }
             }
-            
+
             const leftEl = container.querySelector(`.match-left[data-idx="${leftIdx}"]`);
             const rightEl = container.querySelector(`.match-right[data-idx="${rightIdx}"]`);
             leftEl?.classList.add('match-wrong');
@@ -553,7 +564,7 @@ window.checkMatchAnswer = function(qIndex) {
 
     // Record to localStorage
     recordAnswer(questionId, allCorrect);
-    
+
     // Update the stats display on this card
     const statsEl = card.querySelector('.q-stats');
     if (statsEl) {
@@ -621,7 +632,7 @@ window.checkAnswer = function (index) {
 
     // Record to localStorage
     recordAnswer(questionId, isCorrect);
-    
+
     // Update the stats display on this card
     const statsEl = card.querySelector('.q-stats');
     if (statsEl) {
