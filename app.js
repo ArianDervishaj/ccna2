@@ -167,9 +167,9 @@ function updateFilterCounts() {
     if (select) {
         select.options[0].text = `All (${countAll})`;
         select.options[1].text = `Struggling <50% (${countStruggling})`;
-        select.options[1].text = `Learning >50% <90% (${countLearning})`;
-        select.options[2].text = `Unanswered (${countUnanswered})`;
-        select.options[3].text = `Mastered >90% (${countMastered})`;
+        select.options[2].text = `Learning >50% <90% (${countLearning})`;
+        select.options[3].text = `Unanswered (${countUnanswered})`;
+        select.options[4].text = `Mastered >90% (${countMastered})`;
     }
 }
 
