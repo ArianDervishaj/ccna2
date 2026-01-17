@@ -54,7 +54,7 @@ function applyFilterAndSort() {
         
         switch (currentFilter) {
             case 'struggling':
-                return stats.attempts > 0 && rate <= 0.5;
+                return stats.attempts > 0 && rate < 0.5;
             case 'unanswered':
                 return stats.attempts === 0;
             case 'learning':
