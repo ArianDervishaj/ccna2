@@ -1,6 +1,5 @@
 const quizData = [
   {
-    "id": 1,
     "title": "1. Refer to the exhibit. What will router R1 do with a\n                    packet that has a destination IPv6 address of 2001:db8:cafe:5::1?",
     "text": "",
     "images": [
@@ -18,7 +17,6 @@ const quizData = [
     "explanation": "The route ::/0 is the compressed form of the 0000:0000:0000:0000:0000:0000:0000:0000/0 default\n                    route. The default route is used if a more specific route is not found in the routing table."
   },
   {
-    "id": 2,
     "title": "2. Refer to the exhibit. Currently router R1 uses an EIGRP\n                    route learned from Branch2 to reach the 10.10.0.0/16 network. Which floating static route would\n                    create a backup route to the 10.10.0.0/16 network in the event that the link between R1 and Branch2\n                    goes down?",
     "text": "",
     "images": [
@@ -36,7 +34,6 @@ const quizData = [
     "explanation": "A floating static route needs to have an administrative distance that is greater than the\n                    administrative distance of the active route in the routing table. Router R1 is using an EIGRP route\n                    which has an administrative distance of 90 to reach the 10.10.0.0/16 network. To be a backup route\n                    the floating static route must have an administrative distance greater than 90 and have a next hop\n                    address corresponding to the serial interface IP address of Branch1."
   },
   {
-    "id": 3,
     "title": "3. Refer to the exhibit. R1 was configured with the static\n                    route command ip route 209.165.200.224 255.255.255.224 S0/0/0 and consequently users on network\n                    172.16.0.0/16 are unable to reach resources on the Internet. How should this static route be changed\n                    to allow user traffic from the LAN to reach the Internet?",
     "text": "",
     "images": [
@@ -54,7 +51,6 @@ const quizData = [
     "explanation": "Explain: The\n                    static route on R1 has been incorrectly configured with the wrong destination network and mask. The\n                    correct destination network and mask is 0.0.0.0 0.0.0.0."
   },
   {
-    "id": 4,
     "title": "4. Which option shows a correctly configured IPv4 default\n                    static route?",
     "text": "",
     "images": [],
@@ -70,7 +66,6 @@ const quizData = [
     "explanation": "The static route ip route 0.0.0.0 0.0.0.0 S0/0/0 is considered a default static route and will match\n                    all destination networks."
   },
   {
-    "id": 5,
     "title": "5. Refer to the exhibit. Which static route command can be\n                    entered on R1 to forward traffic to the LAN connected to R2?",
     "text": "",
     "images": [
@@ -88,7 +83,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 6,
     "title": "6. What is a method to launch a VLAN hopping attack?",
     "text": "",
     "images": [],
@@ -104,7 +98,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 7,
     "title": "7. A cybersecurity analyst is using the macof tool to\n                    evaluate configurations of switches deployed in the backbone network of an organization. Which type\n                    of LAN attack is the analyst targeting during this evaluation?",
     "text": "",
     "images": [],
@@ -120,7 +113,6 @@ const quizData = [
     "explanation": "Macof is a network attack tool and is mainly used to flood LAN switches with MAC addresses."
   },
   {
-    "id": 8,
     "title": "8. Refer to the exhibit. A network administrator is\n                    configuring a router as a DHCPv6 server. The administrator issues a show ipv6 dhcp pool command to\n                    verify the configuration. Which statement explains the reason that the number of active clients is\n                    0?",
     "text": "",
     "images": [
@@ -138,7 +130,6 @@ const quizData = [
     "explanation": "Explain:\nUnder the stateless DHCPv6 configuration, indicated by the command ipv6 nd\n                    other-config-flag, the DHCPv6 server does not maintain the state information, because client IPv6\n                    addresses are not managed by the DHCP server. Because the clients will configure their IPv6\n                    addresses by combining the prefix/prefix-length and a self-generated interface ID, the ipv6 dhcp\n                    pool configuration does not need to specify the valid IPv6 address range. And because clients will\n                    use the link-local address of the router interface as the default gateway address, the default\n                    gateway address is not necessary."
   },
   {
-    "id": 9,
     "title": "9. Refer to the exhibit. A network administrator\n                    configured routers R1 and R2 as part of HSRP group 1. After the routers have been reloaded, a user\n                    on Host1 complained of lack of connectivity to the Internet The network administrator issued the\n                    show standby brief command on both routers to verify the HSRP operations. In addition, the\n                    administrator observed the ARP table on Host1. Which entry should be seen in the ARP table on Host1\n                    in order to gain connectivity to the Internet?",
     "text": "",
     "images": [
@@ -156,7 +147,6 @@ const quizData = [
     "explanation": "Hosts will send an ARP request to the default gateway which is the virtual IP address. ARP replies\n                    from the HSRP routers contain the virtual MAC address. The host ARP tables will contain a mapping of\n                    the virtual IP to the virtual MAC."
   },
   {
-    "id": 10,
     "title": "10.\u00a0Match the forwarding characteristic to its type.\n                    (Not all options are used.)",
     "text": "",
     "images": [
@@ -167,7 +157,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 11,
     "title": "11. Which statement is correct about how a Layer 2 switch\n                    determines how to forward frames?",
     "text": "",
     "images": [],
@@ -183,7 +172,6 @@ const quizData = [
     "explanation": "Cut-through frame forwarding reads up to only the first 22 bytes of a frame, which excludes the\n                    frame check sequence and thus invalid frames may be forwarded. In addition to broadcast frames,\n                    frames with a destination MAC address that is not in the CAM are also flooded out all active ports.\n                    Unicast frames are not always forwarded. Received frames with a destination MAC address that is\n                    associated with the switch port on which it is received are not forwarded because the destination\n                    exists on the network segment connected to that port."
   },
   {
-    "id": 12,
     "title": "12. Which statement describes a result after multiple\n                    Cisco LAN switches are interconnected?",
     "text": "",
     "images": [],
@@ -200,7 +188,6 @@ const quizData = [
     "explanation": "In Cisco LAN switches, the microsegmentation makes it possible for each port to represent a separate\n                    segment and thus each switch port represents a separate collision domain. This fact will not change\n                    when multiple switches are interconnected. However, LAN switches do not filter broadcast frames. A\n                    broadcast frame is flooded to all ports. Interconnected switches form one big broadcast domain."
   },
   {
-    "id": 13,
     "title": "13. Match the link state to the interface and protocol\n                    status. (Not all options are used.)",
     "text": "",
     "images": [
@@ -211,7 +198,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 14,
     "title": "14.Refer to the exhibit. How is a frame sent from PCA\n                    forwarded to PCC if the MAC address table on switch SW1 is empty?",
     "text": "",
     "images": [
@@ -229,7 +215,6 @@ const quizData = [
     "explanation": "When a switch powers on, the MAC address table is empty. The switch builds the MAC address table by\n                    examining the source MAC address of incoming frames. The switch forwards based on the destination\n                    MAC address found in the frame header. If a switch has no entries in the MAC address table or if the\n                    destination MAC address is not in the switch table, the switch will forward the frame out all ports\n                    except the port that brought the frame into the switch."
   },
   {
-    "id": 15,
     "title": "15. An administrator is trying to remove configurations\n                    from a switch. After using the command erase startup-config and reloading the switch, the\n                    administrator finds that VLANs 10 and 100 still exist on the switch. Why were these VLANs not\n                    removed?",
     "text": "",
     "images": [],
@@ -245,7 +230,6 @@ const quizData = [
     "explanation": "Standard range VLANs (1-1005) are stored in a file that is called vlan.dat that is located in flash\n                    memory. Erasing the startup configuration and reloading a switch does not automatically remove these\n                    VLANs. The vlan.dat file must be manually deleted from flash memory and then the switch must be\n                    reloaded."
   },
   {
-    "id": 16,
     "title": "16. Match the description to the correct VLAN type. (Not\n                    all options are used.)",
     "text": "",
     "images": [
@@ -256,7 +240,6 @@ const quizData = [
     "explanation": "A data VLAN is configured to carry user-generated traffic. A default VLAN is the VLAN where all\n                    switch ports belong after the initial boot up of a switch loading the default configuration. A\n                    native VLAN is assigned to an 802.1Q trunk port, and untagged traffic is placed on it. A management\n                    VLAN is any VLAN that is configured to access the management capabilities of a switch. An IP address\n                    and subnet mask are assigned to it, allowing the switch to be managed via HTTP, Telnet, SSH, or\n                    SNMP."
   },
   {
-    "id": 17,
     "title": "17. Refer to the exhibit. A network administrator has\n                    connected two switches together using EtherChannel technology. If STP is running, what will be the\n                    end result?",
     "text": "",
     "images": [
@@ -274,7 +257,6 @@ const quizData = [
     "explanation": "Cisco switches support two protocols for negotiating a channel between two switches: LACP and PAgP.\n                    PAgP is Cisco-proprietary. In the topology shown, the switches are connected to each other using\n                    redundant links. By default, STP is enabled on switch devices. STP will block redundant links to\n                    prevent loops."
   },
   {
-    "id": 18,
     "title": "18. What is a secure configuration option for remote\n                    access to a network device?",
     "text": "",
     "images": [],
@@ -290,7 +272,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 19,
     "title": "19. Which wireless encryption method is the most\n                    secure?",
     "text": "",
     "images": [],
@@ -306,7 +287,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 20,
     "title": "20. After attaching four PCs to the switch ports,\n                    configuring the SSID and setting authentication properties for a small office network, a technician\n                    successfully tests the connectivity of all PCs that are connected to the switch and WLAN. A firewall\n                    is then configured on the device prior to connecting it to the Internet. What type of network device\n                    includes all of the described features?",
     "text": "",
     "images": [],
@@ -322,7 +302,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 21,
     "title": "21. Refer to the exhibit. Host A has sent a packet to host\n                    B. What will be the source MAC and IP addresses on the packet when it arrives at host B?",
     "text": "",
     "images": [
@@ -341,7 +320,6 @@ const quizData = [
     "explanation": "As a packet traverses the network, the Layer 2 addresses will change at every hop as the packet is\n                    de-encapsulated and re-encapsulated, but the Layer 3 addresses will remain the same."
   },
   {
-    "id": 22,
     "title": "23. Refer to the exhibit. In addition to static routes\n                    directing traffic to networks 10.10.0.0/16 and 10.20.0.0/16, Router HQ is also configured with the\n                    following command:",
     "text": "",
     "images": [
@@ -359,7 +337,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 23,
     "title": "24. What protocol or technology disables redundant paths\n                    to eliminate Layer 2 loops?",
     "text": "",
     "images": [],
@@ -375,7 +352,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 24,
     "title": "25. Refer to the exhibit. Based on the exhibited\n                    configuration and output, why is VLAN 99 missing?",
     "text": "",
     "images": [
@@ -393,7 +369,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 25,
     "title": "26. Which two VTP modes allow for the creation,\n                    modification, and deletion of VLANs on the local switch? (Choose two.)",
     "text": "",
     "images": [],
@@ -412,7 +387,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 26,
     "title": "27. Which three steps should be taken before moving a\n                    Cisco switch to a new VTP management domain? (Choose three.)",
     "text": "",
     "images": [],
@@ -432,7 +406,6 @@ const quizData = [
     "explanation": "When adding a new switch to a VTP domain, it is critical to configure the switch with a new domain\n                    name, the correct VTP mode, VTP version number, and password. A switch with a higher revision number\n                    can propagate invalid VLANs and erase valid VLANs thus preventing connectivity for multiple devices\n                    on the valid VLANs."
   },
   {
-    "id": 27,
     "title": "28. A network administrator is preparing the\n                    implementation of Rapid PVST+ on a production network. How are the Rapid PVST+ link types determined\n                    on the switch interfaces?",
     "text": "",
     "images": [],
@@ -448,7 +421,6 @@ const quizData = [
     "explanation": "When Rapid PVST+ is being implemented, link types are automatically determined but can be specified\n                    manually. Link types can be either point-to-point, shared, or edge."
   },
   {
-    "id": 28,
     "title": "29. Refer to the exhibit. All the displayed switches are\n                    Cisco 2960 switches with the same default priority and operating at the same bandwidth. Which three\n                    ports will be STP designated ports? (Choose three.)",
     "text": "",
     "images": [
@@ -470,7 +442,6 @@ const quizData = [
     "explanation": "Given that all the switches have the same default priority and are operating at the same bandwidth,\n                    the switch with the lowest MAC address will become the root bridge. This would be SW3 and all its\n                    ports would be designated ports. SW1 has a lower MAC address than SW2 has and therefore port fa0/10\n                    will become the designated port on that link."
   },
   {
-    "id": 29,
     "title": "30. How will a router handle static routing differently if\n                    Cisco Express Forwarding is disabled?",
     "text": "",
     "images": [],
@@ -486,7 +457,6 @@ const quizData = [
     "explanation": "In most\n                    platforms running IOS 12.0 or later, Cisco Express Forwarding is enabled by default. Cisco Express\n                    Forwarding eliminates the need for the recursive lookup. If Cisco Express Forwarding is disabled,\n                    multiaccess network interfaces require fully specified static routes in order to avoid\n                    inconsistencies in their routing tables. Point-to-point interfaces do not have this problem, because\n                    multiple end points are not present. With or without Cisco Express Forwarding enabled, using an exit\n                    interface when configuring a static route is a viable option."
   },
   {
-    "id": 30,
     "title": "31. Compared with dynamic routes, what are two advantages\n                    of using static routes on a router? (Choose two.)",
     "text": "",
     "images": [],
@@ -503,7 +473,6 @@ const quizData = [
     "explanation": "Static routes are manually configured on a router. Static routes are not automatically updated and\n                    must be manually reconfigured if the network topology changes. Thus static routing improves network\n                    security because it does not make route updates among neighboring routers. Static routes also\n                    improve resource efficiency by using less bandwidth, and no CPU cycles are used to calculate and\n                    communicate routes."
   },
   {
-    "id": 31,
     "title": "32. Refer to the exhibit. Which route was configured as a\n                    static route to a specific network using the next-hop address?",
     "text": "",
     "images": [
@@ -521,7 +490,6 @@ const quizData = [
     "explanation": "The C in a routing table indicates an interface that is up and has an IP address assigned. The S in\n                    a routing table signifies that a route was installed using the ip route command. Two of the routing\n                    table entries shown are static routes to a specific destination (the 192.168.2.0 network). The entry\n                    that has the S denoting a static route and [1/0] was configured using the next-hop address. The\n                    other entry (S 192.168.2.0/24 is directly connected, Serial 0/0/0) is a static route configured\n                    using the exit interface. The entry with the 0.0.0.0 route is a default static route which is used\n                    to send packets to any destination network that is not specifically listed in the routing\n                    table."
   },
   {
-    "id": 32,
     "title": "33. What is the effect of entering the spanning-tree\n                    portfast configuration command on a switch?",
     "text": "",
     "images": [],
@@ -537,7 +505,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 33,
     "title": "34. What is the IPv6 prefix that is used for link-local\n                    addresses?",
     "text": "",
     "images": [],
@@ -553,7 +520,6 @@ const quizData = [
     "explanation": "The IPv6\n                    link-local prefix is FE80::/10 and is used to create a link-local IPv6 address on an interface."
   },
   {
-    "id": 34,
     "title": "35. Which two statements are characteristics of routed\n                    ports on a multilayer switch? (Choose two.)\u200b",
     "text": "",
     "images": [],
@@ -571,7 +537,6 @@ const quizData = [
     "explanation": "Routed\n                    ports are physical ports that act similarly to a router interface. They are not associated with a\n                    particular VLAN, they do not support subinterfaces, and they are used for point-to-point links. In a\n                    switched network, they are mostly configured between switches at the core and distribution layers.\n                    To configure routed ports, the no switchport interface command has to be used on the appropriate\n                    ports."
   },
   {
-    "id": 35,
     "title": "36. Successful inter-VLAN routing has been operating on a\n                    network with multiple VLANs across multiple switches for some time. When an inter-switch trunk link\n                    fails and Spanning Tree Protocol brings up a backup trunk link, it is reported that hosts on two\n                    VLANs can access some, but not all the network resources that could be accessed previously. Hosts on\n                    all other VLANS do not have this problem. What is the most likely cause of this problem?",
     "text": "",
     "images": [],
@@ -587,7 +552,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 36,
     "title": "37. Which command will start the process to bundle two\n                    physical interfaces to create an EtherChannel group via LACP?",
     "text": "",
     "images": [],
@@ -603,7 +567,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 37,
     "title": "38. What action takes place when a frame entering a switch\n                    has a multicast destination MAC address?",
     "text": "",
     "images": [],
@@ -619,7 +582,6 @@ const quizData = [
     "explanation": "If the\n                    destination MAC address is a broadcast or a multicast, the frame is also flooded out all ports\n                    except the incoming port."
   },
   {
-    "id": 38,
     "title": "39. A junior technician was adding a route to a LAN\n                    router. A traceroute to a device on the new network revealed a wrong path and unreachable status.\n                    What should be done or checked?",
     "text": "",
     "images": [],
@@ -635,7 +597,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 39,
     "title": "40. Select the three PAgP channel establishment modes.\n                    (Choose three.)",
     "text": "",
     "images": [],
@@ -655,7 +616,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 40,
     "title": "41. A static route has been configured on a router.\n                    However, the destination network no longer exists. What should an administrator do to remove the\n                    static route from the routing table?",
     "text": "",
     "images": [],
@@ -671,7 +631,6 @@ const quizData = [
     "explanation": "When the destination network specified in a static route does not exist anymore, the static route\n                    stays in the routing table until it is manually removed by using the no ip route\n                    command."
   },
   {
-    "id": 41,
     "title": "42. Refer to the exhibit. What can be concluded about the\n                    configuration shown on R1?",
     "text": "",
     "images": [
@@ -689,7 +648,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 42,
     "title": "43. Match the step to each switch boot sequence\n                    description. (Not all options are used.)",
     "text": "Explanation: The steps\n                    are:\n1. execute POST\n2. load the boot loader from ROM\n3. CPU register initializations\n4. flash file system initialization\n\n5. load the IOS\n6. transfer switch control to the IOS",
     "images": [
@@ -700,7 +658,6 @@ const quizData = [
     "explanation": "The steps\n                    are:\n1. execute POST\n2. load the boot loader from ROM\n3. CPU register initializations\n4. flash file system initialization\n\n5. load the IOS\n6. transfer switch control to the IOS"
   },
   {
-    "id": 43,
     "title": "44. Refer to the exhibit. R1 has been configured as shown.\n                    However, PC1 is not able to receive an IPv4 address. What is the problem?\u200b",
     "text": "",
     "images": [
@@ -718,7 +675,6 @@ const quizData = [
     "explanation": "The ip helper-address command has to be applied on interface Gi0/0. This command must be present on\n                    the interface of the LAN that contains the DHCPv4 client PC1 and must be directed to the correct\n                    DHCPv4 server."
   },
   {
-    "id": 44,
     "title": "45. What two default wireless router settings can affect\n                    network security? (Choose two.)",
     "text": "",
     "images": [
@@ -738,7 +694,6 @@ const quizData = [
     "explanation": "Default settings on wireless routers often include broadcasting the SSID and using a well-known\n                    administrative password. Both of these pose a security risk to wireless networks. WEP encryption and\n                    MAC address filtering are not set by default. The automatic selection of the wireless channel poses\n                    no security risks."
   },
   {
-    "id": 45,
     "title": "46.What is the common term given to SNMP log messages that are generated by network devices and sent to the SNMP server?",
     "text": "",
     "images": [],
@@ -754,7 +709,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 46,
     "title": "47. A network administrator is adding a new WLAN on a\n                    Cisco 3500 series WLC. Which tab should the administrator use to create a new VLAN interface to be\n                    used for the new WLAN?",
     "text": "",
     "images": [],
@@ -770,7 +724,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 47,
     "title": "48. A network administrator is configuring a WLAN. Why\n                    would the administrator change the default DHCP IPv4 addresses on an AP?",
     "text": "",
     "images": [],
@@ -786,7 +739,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 47,
     "title": "49. Which two functions are performed by a WLC when using\n                    split media access control (MAC)? (Choose two.)",
     "text": "",
     "images": [],
@@ -804,7 +756,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 48,
     "title": "50. On what switch ports should BPDU guard be enabled to\n                    enhance STP stability?",
     "text": "",
     "images": [],
@@ -820,7 +771,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 49,
     "title": "51. Which network attack is mitigated by enabling BPDU\n                    guard?",
     "text": "",
     "images": [],
@@ -836,7 +786,6 @@ const quizData = [
     "explanation": "Explain: DAI\n                    relies on DHCP snooping. DHCP snooping listens to DHCP message exchanges and builds a bindings\n                    database of valid tuples (MAC address, IP address, VLAN interface).\nWhen DAI is enabled, the switch drops\n                    ARP packet if the sender MAC address and sender IP address do not match an entry in the DHCP\n                    snooping bindings database. However, it can be overcome through static mappings. Static mappings are\n                    useful when hosts configure static IP addresses, DHCP snooping cannot be run, or other switches in\n                    the network do not run dynamic ARP inspection. A static mapping associates an IP address to a MAC\n                    address on a VLAN."
   },
   {
-    "id": 50,
     "title": "52. Why is DHCP snooping required when using the Dynamic ARP Inspection feature?",
     "text": "",
     "images": [],
@@ -852,7 +801,6 @@ const quizData = [
     "explanation": "Explain: The\n                    problem with the current floating static route is that the administrative distance is set too low.\n                    The administrative distance will need to be higher than that of OSPF, which is 110, so that the\n                    router will only use the OSPF link when it is up."
   },
   {
-    "id": 50,
     "title": "53. Refer to the exhibit. Router R1 has an OSPF neighbor\n                    relationship with the ISP router over the 192.168.0.32 network. The 192.168.0.36 network link should\n                    serve as a backup when the OSPF link goes down. The floating static route command ip route 0.0.0.0\n                    0.0.0.0 S0/0/1 100 was issued on R1 and now traffic is using the backup link even when the OSPF link\n                    is up and functioning. Which change should be made to the static route command so that traffic will\n                    only use the OSPF link when it is up?\u200b",
     "text": "",
     "images": [
@@ -870,7 +818,6 @@ const quizData = [
     "explanation": "Explain: The\n                    problem with the current floating static route is that the administrative distance is set too low.\n                    The administrative distance will need to be higher than that of OSPF, which is 110, so that the\n                    router will only use the OSPF link when it is up."
   },
   {
-    "id": 51,
     "title": "54. Refer to the exhibit. What is the metric to forward a\n                    data packet with the IPv6 destination address 2001:DB8:ACAD:E:240:BFF:FED4:9DD2?",
     "text": "",
     "images": [
@@ -890,7 +837,6 @@ const quizData = [
     "explanation": "Explain: The\n                    IPv6 destination address 2001:DB8:ACAD:E:240:BFF:FED4:9DD2 belongs to the network of\n                    2001:DB8:ACAD:E::/64. In the routing table, the route to forward the packet has Serial 0/0/1 as an\n                    exit interface and 2682112 as the cost."
   },
   {
-    "id": 52,
     "title": "55. A network administrator is configuring a new Cisco\n                    switch for remote management access. Which three items must be configured on the switch for the\n                    task? (Choose three.)",
     "text": "",
     "images": [],
@@ -910,7 +856,6 @@ const quizData = [
     "explanation": "Explain: To\n                    enable the remote management access, the Cisco switch must be configured with an IP address and a\n                    default gateway. In addition, vty lines must configured to enable either Telnet or SSH connections.\n                    A loopback address, default VLAN, and VTP domain configurations are not necessary for the purpose of\n                    remote switch management."
   },
   {
-    "id": 53,
     "title": "56. Refer to the exhibit. Which statement shown in the\n                    output allows router R1 to respond to stateless DHCPv6 requests?",
     "text": "",
     "images": [
@@ -929,7 +874,6 @@ const quizData = [
     "explanation": "Explain: The\n                    interface command ipv6 nd other-config-flag allows RA messages to be sent on this interface,\n                    indicating that additional information is available from a stateless DHCPv6 server."
   },
   {
-    "id": 54,
     "title": "57. Refer to the exhibit. A Layer 3 switch routes for\n                    three VLANs and connects to a router for Internet connectivity. Which two configurations would be\n                    applied to the switch? (Choose two.)",
     "text": "",
     "images": [
@@ -946,7 +890,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 55,
     "title": "58. A technician is troubleshooting a slow WLAN and\n                    decides to use the split-the-traffic approach. Which two parameters would have to be configured to\n                    do this? (Choose two.)",
     "text": "",
     "images": [],
@@ -964,7 +907,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 56,
     "title": "59. A company has just switched to a new ISP. The ISP has\n                    completed and checked the connection from its site to the company. However, employees at the company\n                    are not able to access the internet. What should be done or checked?",
     "text": "",
     "images": [],
@@ -980,7 +922,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 57,
     "title": "60. Which information does a switch use to populate the\n                    MAC address table?",
     "text": "",
     "images": [],
@@ -998,7 +939,6 @@ const quizData = [
     "explanation": "Explain: To\n                    maintain the MAC address table, the switch uses the source MAC address of the incoming packets and\n                    the port that the packets enter. The destination address is used to select the outgoing port."
   },
   {
-    "id": 58,
     "title": "61. Refer to the exhibit. A network administrator is\n                    reviewing the configuration of switch S1. Which protocol has been implemented to group multiple\n                    physical ports into one logical link?",
     "text": "",
     "images": [
@@ -1016,7 +956,6 @@ const quizData = [
     "explanation": "The EtherChannel protocol PAgP provides the grouping of physical interfaces and utilizes the modes\n                    of auto and desirable. The EtherChannel protocol LACP provides the grouping of physical interfaces\n                    and utilizes the modes of passive and active. DTP and STP are not utilized to group multiple\n                    physical interfaces into a single logical link."
   },
   {
-    "id": 59,
     "title": "62. Which type of static route is configured with a\n                    greater administrative distance to provide a backup route to a route learned from a dynamic routing\n                    protocol?",
     "text": "",
     "images": [],
@@ -1032,7 +971,6 @@ const quizData = [
     "explanation": "Explain:\n                    There are four basic types of static routes. Floating static routes are backup routes that are\n                    placed into the routing table if a primary route is lost. A summary static route aggregates several\n                    routes into one, reducing the of the routing table. Standard static routes are manually entered\n                    routes into the routing table. Default static routes create a gateway of last resort."
   },
   {
-    "id": 60,
     "title": "63. What action takes place when a frame entering a switch\n                    has a unicast destination MAC address appearing in the MAC address table?",
     "text": "",
     "images": [],
@@ -1048,7 +986,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 61,
     "title": "64. The exhibit shows two PCs called PC A and PC B, two\n                    routes called R1 and R2, and two switches. PC A has the address 172.16.1.1/24 and is connected to a\n                    switch and into an interface on R1 that has the IP address 172.16.1.254. PC B has the address\n                    172.16.2.1/24 and is connected to a switch that is connected to another interface on R1 with the IP\n                    address 172.16.2.254. The serial interface on R1 has the address 172.16.3.1 and is connected to the\n                    serial interface on R2 that has the address 172.16.3.2/24. R2 is connected to the internet cloud.\n                    Which command will create a static route on R2 in order to reach PC B?",
     "text": "",
     "images": [
@@ -1066,7 +1003,6 @@ const quizData = [
     "explanation": "Explain: The\n                    correct syntax is:\nrouter(config)# ip route destination-network destination-mask\n                    {next-hop-ip-address | exit-interface}\nIf the local exit interface instead of the next-hop IP address is used then the\n                    route will be displayed as a directly connected route instead of a static route in the routing\n                    table. Because the network to be reached is 172.16.2.0 and the next-hop IP address is 172.16.3.1,\n                    the command is R2(config)# ip route 172.16.2.0 255.255.255.0 172.16.3.1"
   },
   {
-    "id": 62,
     "title": "65. What protocol or technology allows data to transmit\n                    over redundant switch links?",
     "text": "",
     "images": [],
@@ -1082,7 +1018,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 63,
     "title": "66. Refer to the exhibit. Which three hosts will receive\n                    ARP requests from host A, assuming that port Fa0/4 on both switches is configured to carry traffic\n                    for multiple VLANs? (Choose three.)",
     "text": "",
     "images": [
@@ -1104,7 +1039,6 @@ const quizData = [
     "explanation": "Explain: ARP\n                    requests are sent out as broadcasts. That means the ARP request is sent only throughout a specific\n                    VLAN. VLAN 1 hosts will only hear ARP requests from hosts on VLAN 1. VLAN 2 hosts will only hear ARP\n                    requests from hosts on VLAN 2."
   },
   {
-    "id": 64,
     "title": "67. Refer to the exhibit. The network administrator\n                    configures both switches as displayed. However, host C is unable to ping host D and host E is unable\n                    to ping host F. What action should the administrator take to enable this communication?",
     "text": "",
     "images": [
@@ -1123,7 +1057,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 65,
     "title": "68. What is the effect of entering the shutdown\n                    configuration command on a switch?",
     "text": "",
     "images": [],
@@ -1139,7 +1072,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 66,
     "title": "69. What would be the primary reason an attacker would\n                    launch a MAC address overflow attack?",
     "text": "",
     "images": [],
@@ -1155,7 +1087,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 67,
     "title": "70. During the AAA process, when will authorization be\n                    implemented?",
     "text": "",
     "images": [],
@@ -1171,7 +1102,6 @@ const quizData = [
     "explanation": "Explain: A.\n                    AAA authorization is implemented immediately after the user is authenticated against a specific AAA\n                    data source."
   },
   {
-    "id": 68,
     "title": "71. A company security policy requires that all MAC\n                    addressing be dynamically learned and added to both the MAC address table and the running\n                    configuration on each switch. Which port security configuration will accomplish this?",
     "text": "",
     "images": [],
@@ -1187,7 +1117,6 @@ const quizData = [
     "explanation": "Explain: With\n                    sticky secure MAC addressing, the MAC addresses can be either dynamically learned or manually\n                    configured and then stored in the address table and added to the running configuration file. In\n                    contrast, dynamic secure MAC addressing provides for dynamically learned MAC addressing that is\n                    stored only in the address table."
   },
   {
-    "id": 69,
     "title": "72. Which three Wi-Fi standards operate in the 2.4GHz\n                    range of frequencies? (Choose three.)",
     "text": "",
     "images": [],
@@ -1206,7 +1135,6 @@ const quizData = [
     "explanation": "802.11b\n                    and 802.11g operate in the 2.4GHz range, and 802.11n can operate in either the 2.4GHz or the 5GHz\n                    range. 802.11a and 802.11ac operate only in the 5GHz range of frequencies."
   },
   {
-    "id": 70,
     "title": "73. To obtain an overview of the spanning tree status of a\n                    switched network, a network engineer issues the show spanning-tree command on a switch. Which two\n                    items of information will this command display? (Choose two.)",
     "text": "",
     "images": [],
@@ -1224,7 +1152,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 71,
     "title": "74. Refer to the exhibit. Which trunk link will not\n                    forward any traffic after the root bridge election process is complete?",
     "text": "",
     "images": [
@@ -1242,7 +1169,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 72,
     "title": "75. Which method of IPv6 prefix assignment relies on the\n                    prefix contained in RA messages?",
     "text": "",
     "images": [],
@@ -1258,7 +1184,6 @@ const quizData = [
     "explanation": "Stateless\n                    Address Autoconfiguration (SLAAC) relies on information received in router advertisement (RA)\n                    messages in order to automatically create an IPv6 address. The RA messages contain information such\n                    as the network prefix and prefix length, which the host combines with an interface ID in order to\n                    make a unique IPv6 unicast address."
   },
   {
-    "id": 73,
     "title": "76. Which two protocols are used to provide server-based\n                    AAA authentication? (Choose two.)",
     "text": "",
     "images": [],
@@ -1276,7 +1201,6 @@ const quizData = [
     "explanation": "Server-based AAA authentication uses an external TACACS or RADIUS authentication server to maintain\n                    a username and password database. When a client establishes a connection with an AAA enabled device,\n                    the device authenticates the client by querying the authentication servers."
   },
   {
-    "id": 74,
     "title": "77. A network administrator is configuring a WLAN. Why\n                    would the administrator disable the broadcast feature for the SSID?",
     "text": "",
     "images": [],
@@ -1292,7 +1216,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 75,
     "title": "78. Which mitigation technique would prevent rogue servers\n                    from providing false IP configuration parameters to clients?",
     "text": "",
     "images": [],
@@ -1308,7 +1231,6 @@ const quizData = [
     "explanation": "Like Dynamic ARP Inspection (DAI), IP Source Guard (IPSG) needs to determine the validity of\n                    MAC-address-to-IP-address bindings. To do this IPSG uses the bindings database built by DHCP\n                    snooping."
   },
   {
-    "id": 76,
     "title": "79. A network administrator configures the port security\n                    feature on a switch. The security policy specifies that each access port should allow up to two MAC\n                    addresses. When the maximum number of MAC addresses is reached, a frame with the unknown source MAC\n                    address is dropped and a notification is sent to the syslog server. Which security violation mode\n                    should be configured for each access port?",
     "text": "",
     "images": [],
@@ -1324,7 +1246,6 @@ const quizData = [
     "explanation": "In port security implementation, an interface can be configured for one of three violation\n                    modes:\nProtect \u2013 a port security violation causes the interface to drop\n                    packets with unknown source addresses and no notification is sent that a security violation has\n                    occurred.\nRestrict \u2013 a port security violation causes the interface to drop\n                    packets with unknown source addresses and to send a notification that a security violation has\n                    occurred.\nShutdown \u2013 a port security violation causes the interface to\n                    immediately become error-disabled and turns off the port LED. No notification is sent that a\n                    security violation has occurred."
   },
   {
-    "id": 77,
     "title": "80. What protocol or technology defines a group of\n                    routers, one of them defined as active and another one as standby?",
     "text": "",
     "images": [],
@@ -1340,7 +1261,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 78,
     "title": "81. Refer to the exhibit. After attempting to enter the\n                    configuration that is shown in router RTA, an administrator receives an error and users on VLAN 20\n                    report that they are unable to reach users on VLAN 30. What is causing the problem?",
     "text": "",
     "images": [
@@ -1358,7 +1278,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 79,
     "title": "82. Which three pairs of trunking modes will establish a\n                    functional trunk link between two Cisco switches? (Choose three.)",
     "text": "",
     "images": [],
@@ -1374,7 +1293,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 80,
     "title": "83. A technician is configuring a router for a small\n                    company with multiple WLANs and doesn\u2019t need the complexity of a dynamic routing protocol. What\n                    should be done or checked?",
     "text": "",
     "images": [],
@@ -1390,7 +1308,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 81,
     "title": "84. A company is deploying a wireless network in the\n                    distribution facility in a Boston suburb. The warehouse is quite large and it requires multiple\n                    access points to be used. Because some of the company devices still operate at 2.4GHz, the network\n                    administrator decides to deploy the 802.11g standard. Which channel assignments on the multiple\n                    access points will make sure that the wireless channels are not overlapping?",
     "text": "",
     "images": [],
@@ -1406,7 +1323,6 @@ const quizData = [
     "explanation": "In the North America domain, 11 channels are allowed for 2.4GHz wireless networking. Among these 11\n                    channels, the combination of channels 1, 6, and 11 are the only non-overlapping channel\n                    combination."
   },
   {
-    "id": 82,
     "title": "85. A network administrator of a small advertising company\n                    is configuring WLAN security by using the WPA2 PSK method. Which credential do office users need in\n                    order to connect their laptops to the WLAN?",
     "text": "",
     "images": [],
@@ -1422,7 +1338,6 @@ const quizData = [
     "explanation": "When a WLAN is configured with WPA2 PSK, wireless users must know the pre-shared key to associate\n                    and authenticate with the AP."
   },
   {
-    "id": 83,
     "title": "86. Refer to the exhibit. What are the possible port roles\n                    for ports A, B, C, and D in this RSTP-enabled network?",
     "text": "",
     "images": [
@@ -1440,7 +1355,6 @@ const quizData = [
     "explanation": "Because S1 is the root bridge, B is a designated port, and C and D root ports. RSTP supports a new\n                    port type, alternate port in discarding state, that can be port A in this scenario."
   },
   {
-    "id": 84,
     "title": "87. Refer to the exhibit. Which static route would an IT\n                    technician enter to create a backup route to the 172.16.1.0 network that is only used if the primary\n                    RIP learned route fails?",
     "text": "",
     "images": [
@@ -1458,7 +1372,6 @@ const quizData = [
     "explanation": "A backup static route is called a floating static route. A floating static route has an\n                    administrative distance greater than the administrative distance of another static route or dynamic\n                    route."
   },
   {
-    "id": 85,
     "title": "88. What mitigation plan is best for thwarting a DoS\n                    attack that is creating a MAC address table overflow?",
     "text": "",
     "images": [],
@@ -1474,7 +1387,6 @@ const quizData = [
     "explanation": "A MAC address (CAM) table overflow attack, buffer overflow, and MAC address spoofing can all be\n                    mitigated by configuring port security. A network administrator would typically not want to disable\n                    STP because it prevents Layer 2 loops. DTP is disabled to prevent VLAN hopping. Placing unused ports\n                    in an unused VLAN prevents unauthorized wired connectivity."
   },
   {
-    "id": 86,
     "title": "89. A network engineer is troubleshooting a newly deployed\n                    wireless network that is using the latest 802.11 standards. When users access high bandwidth\n                    services such as streaming video, the wireless network performance is poor. To improve performance\n                    the network engineer decides to configure a 5 Ghz frequency band SSID and train users to use that\n                    SSID for streaming media services. Why might this solution improve the wireless network performance\n                    for that type of service?",
     "text": "",
     "images": [],
@@ -1490,7 +1402,6 @@ const quizData = [
     "explanation": "Wireless range is determined by the access point antenna and output power, not the frequency band\n                    that is used. In this scenario it is stated that all users have wireless NICs that comply with the\n                    latest standard, and so all can access the 5 GHz band. Although some users may find it inconvenient\n                    to switch to the 5 Ghz band to access streaming services, it is the greater number of channels, not\n                    just fewer users, that will improve network performance."
   },
   {
-    "id": 87,
     "title": "90. Which DHCPv4 message will a client send to accept an\n                    IPv4 address that is offered by a DHCP server?",
     "text": "",
     "images": [],
@@ -1506,7 +1417,6 @@ const quizData = [
     "explanation": "When a DHCP client receives DHCPOFFER messages, it will send a broadcast DHCPREQUEST message for two\n                    purposes. First, it indicates to the offering DHCP server that it would like to accept the offer and\n                    bind the IP address. Second, it notifies any other responding DHCP servers that their offers are\n                    declined."
   },
   {
-    "id": 88,
     "title": "91. Refer to the exhibit. Which destination MAC address is\n                    used when frames are sent from the workstation to the default gateway?",
     "text": "",
     "images": [
@@ -1524,7 +1434,6 @@ const quizData = [
     "explanation": "The IP address of the virtual router acts as the default gateway for all the workstations.\n                    Therefore, the MAC address that is returned by the Address Resolution Protocol to the workstation\n                    will be the MAC address of the virtual router."
   },
   {
-    "id": 89,
     "title": "92. After a host has generated an IPv6 address by using\n                    the DHCPv6 or SLAAC process, how does the host verify that the address is unique and therefore\n                    usable?",
     "text": "",
     "images": [],
@@ -1540,7 +1449,6 @@ const quizData = [
     "explanation": "Before a host can actually configure and use an IPv6 address learned through SLAAC or DHCP, the host\n                    must verify that no other host is already using that address. To verify that the address is indeed\n                    unique, the host sends an ICMPv6 neighbor solicitation to the address. If no neighbor advertisement\n                    is returned, the host considers the address to be unique and configures it on the interface."
   },
   {
-    "id": 90,
     "title": "93. Match the purpose with its DHCP message type. (Not all\n                    options are used.)",
     "text": "",
     "images": [
@@ -1551,7 +1459,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 91,
     "title": "94. Which protocol adds security to remote\n                    connections?",
     "text": "",
     "images": [],
@@ -1568,7 +1475,6 @@ const quizData = [
     "explanation": "SSH allows\n                    a technician to securely connect to a remote network device for monitoring and troubleshooting. HTTP\n                    establishes web page requests. FTP manages file transfer. NetBEUI is not routed on the Internet. POP\n                    downloads email messages from email servers."
   },
   {
-    "id": 92,
     "title": "95. Refer to the exhibit. A network administrator is\n                    verifying the configuration of inter-VLAN routing. Users complain that PC2 cannot communicate with\n                    PC1. Based on the output, what is the possible cause of the problem?",
     "text": "",
     "images": [
@@ -1587,7 +1493,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 93,
     "title": "96. Refer to the exhibit. A network administrator is\n                    configuring inter-VLAN routing on a network. For now, only one VLAN is being used, but more will be\n                    added soon. What is the missing parameter that is shown as the highlighted question mark in the\n                    graphic?",
     "text": "",
     "images": [
@@ -1606,7 +1511,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 94,
     "title": "97. Match each DHCP message type with its description.\n                    (Not all options are used.)",
     "text": "",
     "images": [
@@ -1622,7 +1526,6 @@ const quizData = [
     "explanation": "Place the options in the following order:\n\na client initiating a message to find a\n                    DHCP server \u2013 DHCPDISCOVER\na DHCP server responding to the initial\n                    request by a client \u2013 DHCPOFFER\nthe client accepting the IP address\n                    provided by the DHCP server \u2013 DHCPREQUEST\nthe DHCP server confirming that the\n                    lease has been accepted \u2013 DHCPACK"
   },
   {
-    "id": 95,
     "title": "98. What network attack seeks to create a DoS for clients\n                    by preventing them from being able to obtain a DHCP lease?",
     "text": "",
     "images": [],
@@ -1638,7 +1541,6 @@ const quizData = [
     "explanation": "DCHP starvation attacks are launched by an attacker with\n                    the intent to create a DoS for DHCP clients. To accomplish this goal, the attacker uses a tool that\n                    sends many DHCPDISCOVER messages in order to lease the entire pool of available IP addresses, thus\n                    denying them to legitimate hosts."
   },
   {
-    "id": 96,
     "title": "99. Refer to the exhibit. If the IP addresses of the\n                    default gateway router and the DNS server are correct, what is the configuration problem?",
     "text": "",
     "images": [
@@ -1656,7 +1558,6 @@ const quizData = [
     "explanation": "In this configuration, the excluded address list should\n                    include the address that is assigned to the default gateway router. So the command should be ip dhcp\n                    excluded-address 192.168.10.1 192.168.10.9."
   },
   {
-    "id": 97,
     "title": "100. Refer to the exhibit. A network administrator has\n                    added a new subnet to the network and needs hosts on that subnet to receive IPv4 addresses from the\n                    DHCPv4 server.\nWhat two commands will allow hosts on the new subnet to receive addresses from\n                    the DHCP4 server? (Choose two.)",
     "text": "",
     "images": [
@@ -1677,7 +1578,6 @@ const quizData = [
     "explanation": "You need the router interface that is connected to the\n                    new subnet and the dhcp server address.\nThe ip helper-address command is used to configure a router to be a DHCPv4\n                    relay. The command should be placed on the interface facing the DHCPv4 clients. When the command is\n                    applied on the router interface, the interface will receive DHCPv4 broadcast messages and forward\n                    them as unicast to the IP address of the DHCPv4 server."
   },
   {
-    "id": 98,
     "title": "101. What protocol or technology uses source IP to\n                    destination IP as a load-balancing mechanism?",
     "text": "",
     "images": [],
@@ -1693,7 +1593,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 99,
     "title": "102. What protocol should be disabled to help mitigate\n                    VLAN attacks?",
     "text": "",
     "images": [],
@@ -1709,7 +1608,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 100,
     "title": "103. What protocol or technology requires switches to be\n                    in server mode or client mode?",
     "text": "",
     "images": [],
@@ -1725,7 +1623,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 101,
     "title": "104. What are two reasons a network administrator would\n                    segment a network with a Layer 2 switch? (Choose two.)",
     "text": "",
     "images": [],
@@ -1744,7 +1641,6 @@ const quizData = [
     "explanation": "A switch has the ability of creating temporary point-to-point connections between the\n                    directly-attached transmitting and receiving network devices. The two devices have full-bandwidth\n                    full-duplex connectivity during the transmission."
   },
   {
-    "id": 102,
     "title": "105. What command will enable a router to begin sending\n                    messages that allow it to configure a link-local address without using an IPv6 DHCP server?",
     "text": "",
     "images": [],
@@ -1760,7 +1656,6 @@ const quizData = [
     "explanation": "To enable IPv6 on a router you must use the ipv6 unicast-routing global configuration command or use\n                    the ipv6 enable interface configuration command. This is equivalent to entering ip routing to enable\n                    IPv4 routing on a router when it has been turned off. Keep in mind that IPv4 is enabled on a router\n                    by default. IPv6 is not enabled by default."
   },
   {
-    "id": 103,
     "title": "106. A network administrator is using the\n                    router-on-a-stick model to configure a switch and a router for inter-VLAN routing. What\n                    configuration should be made on the switch port that connects to the router?",
     "text": "",
     "images": [],
@@ -1776,7 +1671,6 @@ const quizData = [
     "explanation": "The port on the switch that connects to the router interface should be configured as a trunk port.\n                    Once it becomes a trunk port, it does not belong to any particular VLAN and will forward traffic\n                    from various VLANs."
   },
   {
-    "id": 104,
     "title": "107. What are three techniques for mitigating VLAN\n                    attacks? (Choose three.)",
     "text": "",
     "images": [],
@@ -1796,7 +1690,6 @@ const quizData = [
     "explanation": "Mitigating a VLAN attack can be done by disabling Dynamic Trunking Protocol (DTP), manually setting\n                    ports to trunking mode, and by setting the native VLAN of trunk links to VLANs not in use."
   },
   {
-    "id": 105,
     "title": "108. Match the DHCP message types to the order of the\n                    DHCPv4 process. (Not all options are used.)",
     "text": "",
     "images": [
@@ -1807,7 +1700,6 @@ const quizData = [
     "explanation": "The\n                    broadcast DHCPDISCOVER message finds DHCPv4 servers on the network. When the DHCPv4 server receives\n                    a DHCPDISCOVER message, it reserves an available IPv4 address to lease to the client and sends the\n                    unicast DHCPOFFER message to the requesting client. When the client receives the DHCPOFFER from the\n                    server, it sends back a DHCPREQUEST. On receiving the DHCPREQUEST message the server replies with a\n                    unicast DHCPACK message. DHCPREPLY and DHCPINFORMATION-REQUEST are DHCPv6 messages."
   },
   {
-    "id": 106,
     "title": "109. In which situation would a technician use the show\n                    interfaces switch command?",
     "text": "",
     "images": [],
@@ -1823,7 +1715,6 @@ const quizData = [
     "explanation": "The show interfaces command is useful to detect media errors, to see if packets are being sent and\n                    received, and to determine if any runts, giants, CRCs, interface resets, or other errors have\n                    occurred. Problems with reachability to a remote network would likely be caused by a misconfigured\n                    default gateway or other routing issue, not a switch issue. The show mac address-table command shows\n                    the MAC address of a directly attached device."
   },
   {
-    "id": 107,
     "title": "110. What is a drawback of the local database method of\n                    securing device access that can be solved by using AAA with centralized servers?",
     "text": "",
     "images": [],
@@ -1839,7 +1730,6 @@ const quizData = [
     "explanation": "The local database method of securing device access utilizes usernames and passwords that are\n                    configured locally on the router. This allows administrators to keep track of who logged in to the\n                    device and when. The passwords can also be encrypted in the configuration. However, the account\n                    information must be configured on each device where that account should have access, making this\n                    solution very difficult to scale."
   },
   {
-    "id": 108,
     "title": "111. What action does a DHCPv4 client take if it receives\n                    more than one DHCPOFFER from multiple DHCP servers?",
     "text": "",
     "images": [],
@@ -1855,7 +1745,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 109,
     "title": "112. Refer to the exhibit. The network administrator is\n                    configuring the port security feature on switch SWC. The administrator issued the command show\n                    port-security interface fa 0/2 to verify the configuration. What can be concluded from the output\n                    that is shown? (Choose three.)",
     "text": "",
     "images": [
@@ -1877,7 +1766,6 @@ const quizData = [
     "explanation": "Because\n                    the security violation count is at 0, no violation has occurred. The system shows that 3 MAC\n                    addresses are allowed on port fa0/2, but only one has been configured and no sticky MAC addresses\n                    have been learned. The port is up because of the port status of secure-up. The violation mode is\n                    what happens when an unauthorized device is attached to the port. A port must be in access mode in\n                    order to activate and use port security."
   },
   {
-    "id": 110,
     "title": "113. What method of wireless authentication is dependent\n                    on a RADIUS authentication server?",
     "text": "",
     "images": [],
@@ -1893,7 +1781,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 111,
     "title": "114. A network administrator has found a user sending a\n                    double-tagged 802.1Q frame to a switch. What is the best solution to prevent this type of\n                    attack?",
     "text": "",
     "images": [],
@@ -1909,7 +1796,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 112,
     "title": "115. Refer to the exhibit. Which two conclusions can be\n                    drawn from the output? (Choose two.)",
     "text": "",
     "images": [
@@ -1929,7 +1815,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 113,
     "title": "116. Match the step number to the sequence of stages that occur\n                    during the HSRP failover process. (Not all options are used.)",
     "text": "",
     "images": [
@@ -1940,7 +1825,6 @@ const quizData = [
     "explanation": "Hot\n                    Standby Router Protocol (HSRP) is a Cisco-proprietary protocol that is designed to allow for\n                    transparent failover of a first-hop IPv4 device."
   },
   {
-    "id": 114,
     "title": "117. On a Cisco 3504 WLC Summary page ( Advanced >\n                    Summary ), which tab allows a network administrator to configure a particular WLAN with a WPA2\n                    policy?",
     "text": "",
     "images": [],
@@ -1956,7 +1840,6 @@ const quizData = [
     "explanation": "The WLANs tab in the Cisco\n                    3504 WLC advanced Summary page allows a user to access the configuration of WLANs\n                    including security, QoS, and policy-mapping."
   },
   {
-    "id": 115,
     "title": "118. Refer to the exhibit. A network engineer is configuring\n                    IPv6 routing on the network. Which command issued on router HQ will configure a default route to the\n                    Internet to forward packets to an IPv6 destination network that is not listed in the routing\n                    table?\u200b",
     "text": "",
     "images": [
@@ -1974,7 +1857,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 116,
     "title": "119. Users are complaining of sporadic access to the internet\n                    every afternoon. What should be done or checked?",
     "text": "",
     "images": [],
@@ -1990,7 +1872,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 117,
     "title": "120. What action takes place when the source MAC address of a\n                    frame entering a switch appears in the MAC address table associated with a different port?",
     "text": "",
     "images": [],
@@ -2006,7 +1887,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 118,
     "title": "121. A network administrator is configuring a WLAN. Why would\n                    the administrator use a WLAN controller?",
     "text": "",
     "images": [],
@@ -2022,7 +1902,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 119,
     "title": "122. A new Layer 3 switch is connected to a router and is being\n                    configured for interVLAN routing. What are three of the five steps required for the configuration?\n                    (Choose three.)",
     "text": "Case 7 (NEW):",
     "images": [],
@@ -2039,7 +1918,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 120,
     "title": "122. A new Layer 3 switch is connected to a router and is being\n                    configured for interVLAN routing. What are three of the five steps required for the configuration?\n                    (Choose three.)",
     "text": "Case 1",
     "images": [],
@@ -2056,7 +1934,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 121,
     "title": "122. A new Layer 3 switch is connected to a router and is being\n                    configured for interVLAN routing. What are three of the five steps required for the configuration?\n                    (Choose three.)",
     "text": "Case 2",
     "images": [],
@@ -2073,7 +1950,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 122,
     "title": "122. A new Layer 3 switch is connected to a router and is being\n                    configured for interVLAN routing. What are three of the five steps required for the configuration?\n                    (Choose three.)",
     "text": "Case 3",
     "images": [],
@@ -2090,7 +1966,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 123,
     "title": "122. A new Layer 3 switch is connected to a router and is being\n                    configured for interVLAN routing. What are three of the five steps required for the configuration?\n                    (Choose three.)",
     "text": "Case 4",
     "images": [],
@@ -2107,7 +1982,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 124,
     "title": "122. A new Layer 3 switch is connected to a router and is being\n                    configured for interVLAN routing. What are three of the five steps required for the configuration?\n                    (Choose three.)",
     "text": "Case 5",
     "images": [],
@@ -2124,7 +1998,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 125,
     "title": "122. A new Layer 3 switch is connected to a router and is being\n                    configured for interVLAN routing. What are three of the five steps required for the configuration?\n                    (Choose three.)",
     "text": "Case 6",
     "images": [],
@@ -2141,7 +2014,6 @@ const quizData = [
     "explanation": "Steps to\n                    configure Layer 3 switch to route with a router:\nStep 1. Configure the routed port.\n\nStep 2. Enable routing.\nStep 3. Configure routing.\nStep 4. Verify routing.\nStep 5. Verify connectivity.\nReference:\n4.3.8 Packet Tracer Configure Layer\n                    3 Switching and inter VLAN Routing"
   },
   {
-    "id": 126,
     "title": "123. Which three statements accurately describe duplex and\n                    speed settings on Cisco 2960 switches? (Choose three.)",
     "text": "",
     "images": [],
@@ -2161,7 +2033,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 127,
     "title": "124. Refer to the exhibit. A network administrator configures\n                    R1 for inter-VLAN routing between VLAN 10 and VLAN 20. However, the devices in VLAN 10 and VLAN 20\n                    cannot communicate. Based on the configuration in the exhibit, what is a possible cause for the\n                    problem?",
     "text": "",
     "images": [
@@ -2179,7 +2050,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 128,
     "title": "125. A network administrator uses the spanning-tree portfast\n                    bpduguard default global configuration command to enable BPDU guard on a switch. However, BPDU guard\n                    is not activated on all access ports. What is the cause of the issue?",
     "text": "",
     "images": [],
@@ -2195,7 +2065,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 129,
     "title": "126. Which two types of spanning tree protocols can cause\n                    suboptimal traffic flows because they assume only one spanning-tree instance for the entire bridged\n                    network? (Choose two.)",
     "text": "",
     "images": [],
@@ -2213,7 +2082,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 130,
     "title": "127. Refer to the exhibit. A network administrator is\n                    configuring the router R1 for IPv6 address assignment. Based on the partial configuration, which\n                    IPv6 global unicast address assignment scheme does the administrator intend to implement?",
     "text": "",
     "images": [
@@ -2231,7 +2099,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 131,
     "title": "128. A WLAN engineer deploys a WLC and five wireless APs\n                    using the CAPWAP protocol with the DTLS feature to secure the control plane of the network devices.\n                    While testing the wireless network, the WLAN engineer notices that data traffic is being exchanged\n                    between the WLC and the APs in plain-text and is not being encrypted. What is the most likely reason\n                    for this?",
     "text": "",
     "images": [],
@@ -2247,7 +2114,6 @@ const quizData = [
     "explanation": "DTLS is a protocol which provides security between the AP and the WLC. It allows them to communicate\n                    using encryption and prevents eavesdropping or tampering.\n\nDTLS is enabled by default to secure the CAPWAP control channel but is disabled\n                    by default for the data channel. All CAPWAP management and control traffic exchanged between an AP\n                    and WLC is encrypted and secured by default to provide control plane privacy and prevent\n                    Man-In-the-Middle (MITM) attacks."
   },
   {
-    "id": 132,
     "title": "129. A new switch is to be added to an existing network in\n                    a remote office. The network administrator does not want the technicians in the remote office to be\n                    able to add new VLANs to the switch, but the switch should receive VLAN updates from the VTP domain.\n                    Which two steps must be performed to configure VTP on the new switch to meet these conditions?\n                    (Choose two.)",
     "text": "",
     "images": [],
@@ -2265,7 +2131,6 @@ const quizData = [
     "explanation": "Before the\n                    switch is put in the correct VTP domain and in client mode, the switch must be connected to any\n                    other switch in the VTP domain through a trunk in order to receive/transmit VTP information."
   },
   {
-    "id": 133,
     "title": "130. Refer to the exhibit. Consider that the main power\n                    has just been restored. PC3 issues a broadcast IPv4 DHCP request. To which port will SW1 forward\n                    this request?\u200b",
     "text": "",
     "images": [
@@ -2284,7 +2149,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 134,
     "title": "131. What action takes place when the source MAC address\n                    of a frame entering a switch is not in the MAC address table?",
     "text": "Case 1",
     "images": [],
@@ -2298,7 +2162,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 135,
     "title": "131. What action takes place when the source MAC address\n                    of a frame entering a switch is not in the MAC address table?",
     "text": "Case 2",
     "images": [],
@@ -2314,7 +2177,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 136,
     "title": "132. Employees are unable to connect to servers on one of the\n                    internal networks. What should be done or checked?",
     "text": "",
     "images": [],
@@ -2330,7 +2192,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 137,
     "title": "133. What is the effect of entering the ip dhcp snooping\n                    configuration command on a switch?",
     "text": "",
     "images": [],
@@ -2346,7 +2207,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 138,
     "title": "134. An administrator notices that large numbers of packets are\n                    being dropped on one of the branch routers. What should be done or checked?",
     "text": "",
     "images": [],
@@ -2362,7 +2222,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 139,
     "title": "135. What are two switch characteristics that could help\n                    alleviate network congestion? (Choose two.)",
     "text": "",
     "images": [],
@@ -2380,7 +2239,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 140,
     "title": "136. What is a result of connecting two or more switches\n                    together?",
     "text": "",
     "images": [],
@@ -2396,7 +2254,6 @@ const quizData = [
     "explanation": ": When two or\n                    more switches are connected together, the size of the broadcast domain is increased and so is the\n                    number of collision domains. The number of broadcast domains is increased only when routers are\n                    added."
   },
   {
-    "id": 141,
     "title": "138. Branch users were able to access a site in the\n                    morning but have had no connectivity with the site since lunch time. What should be done or\n                    checked?",
     "text": "",
     "images": [],
@@ -2412,7 +2269,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 142,
     "title": "139. What is the effect of entering the switchport\n                    port-security configuration command on a switch?",
     "text": "",
     "images": [],
@@ -2428,7 +2284,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 143,
     "title": "140. A network administrator is configuring a WLAN. Why\n                    would the administrator use multiple lightweight APs?",
     "text": "",
     "images": [],
@@ -2444,7 +2299,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 144,
     "title": "141. Refer to the exhibit. PC-A and PC-B are both in VLAN\n                    60. PC-A is unable to communicate with PC-B. What is the problem?",
     "text": "",
     "images": [
@@ -2462,7 +2316,6 @@ const quizData = [
     "explanation": "Because\n                    PC-A and PC-B are connected to different switches, traffic between them must flow over the trunk\n                    link. Trunks can be configured so that they only allow traffic for particular VLANs to cross the\n                    link. In this scenario, VLAN 60, the VLAN that is associated with PC-A and PC-B, has not been\n                    allowed across the link, as shown by the output of show interfaces trunk."
   },
   {
-    "id": 145,
     "title": "142. A network administrator is configuring a WLAN. Why\n                    would the administrator use RADIUS servers on the network?",
     "text": "",
     "images": [],
@@ -2478,7 +2331,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 146,
     "title": "143. What is the effect of entering the switchport mode access\n                    configuration command on a switch?",
     "text": "",
     "images": [],
@@ -2494,7 +2346,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 147,
     "title": "144. A network administrator has configured a router for\n                    stateless DHCPv6 operation. However, users report that workstations are not receiving DNS server\n                    information. Which two router configuration lines should be verified to ensure that stateless DHCPv6\n                    service is properly configured? (Choose two.)",
     "text": "",
     "images": [],
@@ -2512,7 +2363,6 @@ const quizData = [
     "explanation": "To use the\n                    stateless DHCPv6 method, the router must inform DHCPv6 clients to configure a SLAAC IPv6 address and\n                    contact the DHCPv6 server for additional configuration parameters, such as the DNS server address.\n                    This is done through the command ipv6 nd\n                    other-config-flag entered at the interface\n                    configuration mode. The DNS server address is indicated in the ipv6 dhcp pool configuration."
   },
   {
-    "id": 148,
     "title": "145. A network administrator is configuring a WLAN. Why would\n                    the administrator disable the broadcast feature for the SSID?",
     "text": "",
     "images": [],
@@ -2528,7 +2378,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 149,
     "title": "146. Refer to the exhibit. An administrator is attempting\n                    to install an IPv6 static route on router R1 to reach the network attached to router R2. After the\n                    static route command is entered, connectivity to the network is still failing. What error has been\n                    made in the static route configuration?",
     "text": "",
     "images": [
@@ -2546,7 +2395,6 @@ const quizData = [
     "explanation": "In this\n                    example the interface in the static route is incorrect. The interface should be the exit interface\n                    on R1, which is s0/0/0."
   },
   {
-    "id": 150,
     "title": "147. What action takes place when a frame entering a\n                    switch has a unicast destination MAC address that is not in the MAC address table?",
     "text": "",
     "images": [],
@@ -2562,7 +2410,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 151,
     "title": "148. A junior technician was adding a route to a LAN router. A\n                    traceroute to a device on the new network revealed a wrong path and unreachable status. What should\n                    be done or checked?",
     "text": "",
     "images": [],
@@ -2578,7 +2425,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 152,
     "title": "149. What is the effect of entering the ip arp inspection vlan\n                    10 configuration command on a switch?",
     "text": "",
     "images": [],
@@ -2594,7 +2440,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 153,
     "title": "150. What protocol or technology manages trunk negotiations\n                    between switches?",
     "text": "",
     "images": [],
@@ -2610,7 +2455,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 154,
     "title": "151. A network administrator is configuring a WLAN. Why\n                    would the administrator apply WPA2 with AES to the WLAN?",
     "text": "",
     "images": [],
@@ -2626,7 +2470,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 155,
     "title": "152. Users on a LAN are unable to get to a company web\n                    server but are able to get elsewhere. What should be done or checked?",
     "text": "",
     "images": [],
@@ -2642,7 +2485,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 156,
     "title": "153. What IPv6 prefix is designed for link-local\n                    communication?",
     "text": "",
     "images": [],
@@ -2658,7 +2500,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 157,
     "title": "154. What is the effect of entering the ip dhcp snooping limit rate 6 configuration command on a switch?",
     "text": "",
     "images": [],
@@ -2674,7 +2515,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 158,
     "title": "155. A network administrator is configuring a WLAN. Why\n                    would the administrator change the default DHCP IPv4 addresses on an AP?",
     "text": "",
     "images": [],
@@ -2690,7 +2530,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 159,
     "title": "156. What is the effect of entering the ip arp inspection\n                    validate src-mac configuration command on a switch?",
     "text": "",
     "images": [],
@@ -2706,7 +2545,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 160,
     "title": "157. What protocol or technology is a Cisco proprietary\n                    protocol that is automatically enabled on 2960 switches?",
     "text": "",
     "images": [],
@@ -2722,7 +2560,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 161,
     "title": "158. What address and prefix length is used when\n                    configuring an IPv6 default static route?",
     "text": "",
     "images": [],
@@ -2738,7 +2575,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 162,
     "title": "159. What are two characteristics of Cisco Express\n                    Forwarding (CEF)? (Choose two.)",
     "text": "",
     "images": [],
@@ -2756,7 +2592,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 163,
     "title": "160. Which term describes the role of a Cisco switch in\n                    the 802.1X port-based access control?",
     "text": "",
     "images": [],
@@ -2772,7 +2607,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 164,
     "title": "161. Which Cisco solution helps prevent ARP spoofing and\n                    ARP poisoning attacks?",
     "text": "",
     "images": [],
@@ -2788,7 +2622,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 165,
     "title": "162. What is an advantage of PVST+?",
     "text": "",
     "images": [],
@@ -2804,7 +2637,6 @@ const quizData = [
     "explanation": "PVST+ results in optimum\n                    load balancing. However, this is accomplished by manually configuring switches to be elected as root\n                    bridges for different VLANs on the network. The root bridges are not automatically selected.\n                    Furthermore, having spanning-tree instances for each VLAN actually consumes more bandwidth and it\n                    increases the CPU cycles for all the switches in the network."
   },
   {
-    "id": 166,
     "title": "163. What protocol or technology uses a standby router to\n                    assume packet-forwarding responsibility if the active router fails?",
     "text": "",
     "images": [],
@@ -2820,7 +2652,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 167,
     "title": "164. What is the effect of entering the show ip dhcp snooping\n                    binding configuration command on a switch?",
     "text": "",
     "images": [],
@@ -2836,7 +2667,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 168,
     "title": "165. What action takes place when the source MAC address of a\n                    frame entering a switch is in the MAC address table?",
     "text": "",
     "images": [],
@@ -2852,7 +2682,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 169,
     "title": "166. A small publishing company has a network design such\n                    that when a broadcast is sent on the LAN, 200 devices receive the transmitted broadcast. How can the\n                    network administrator reduce the number of devices that receive broadcast traffic?",
     "text": "",
     "images": [],
@@ -2868,7 +2697,6 @@ const quizData = [
     "explanation": "Explain: By\n                    dividing the one big network into two smaller network, the network administrator has created two\n                    smaller broadcast domains. When a broadcast is sent on the network now, the broadcast will only be\n                    sent to the devices on the same Ethernet LAN. The other LAN will not receive the broadcast."
   },
   {
-    "id": 170,
     "title": "167. What defines a host route on a Cisco router?",
     "text": "",
     "images": [],
@@ -2884,7 +2712,6 @@ const quizData = [
     "explanation": "A host route is an IPv4 address with a 32-bit mask,\n                    or an IPv6 address with a 128-bit mask. When an active interface on a router is configured with an\n                    IPv4 or IPv6 address, a local host route is automatically added to the routing table. A host route\n                    is marked with L in the output of the routing table. For IPv6 static routes, the next-hop address\n                    can be the link-local address of the adjacent router. In this case you must specify the interface\n                    type and the interface number of the local router."
   },
   {
-    "id": 171,
     "title": "168. What else is required when configuring an IPv6 static\n                    route using a next-hop link-local address?",
     "text": "",
     "images": [],
@@ -2900,7 +2727,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 172,
     "title": "169. A technician is configuring a wireless network for a\n                    small business using a SOHO wireless router. Which two authentication methods are used, if the\n                    router is configured with WPA2? (Choose two.)",
     "text": "",
     "images": [],
@@ -2918,7 +2744,6 @@ const quizData = [
     "explanation": ""
   },
   {
-    "id": 173,
     "title": "170. Which mitigation technique would prevent rogue\n                    servers from providing false IPv6 configuration parameters to clients?",
     "text": "",
     "images": [],
@@ -2934,7 +2759,6 @@ const quizData = [
     "explanation": "DHCPv6\n                    Guard is a feature designed to ensure that rogue DHCPv6 servers are not able to hand out addresses\n                    to clients, redirect client traffic, or starve out the DHCPv6 server and cause a DoS attack. DHCPv6\n                    Guard requires a policy to be configured in DHCP Guard configuration mode, and DHCPv6 Guard is\n                    enabled on an interface-by-interface basis."
   },
   {
-    "id": 174,
     "title": "171. A PC has sent an RS message to an IPv6 router\n                    attached to the same network. Which two pieces of information will the router send to the client?\n                    (Choose two.)",
     "text": "",
     "images": [],
@@ -2953,7 +2777,6 @@ const quizData = [
     "explanation": "Router is\n                    part of the IPv6 all-routers group and received the RS message. It generates an RA containing the\n                    local network prefix and prefix length (e.g., 2001:db8:acad:1::/64)"
   },
   {
-    "id": 175,
     "title": "172. While attending a conference, participants are using\n                    laptops for network connectivity. When a guest speaker attempts to connect to the network, the\n                    laptop fails to display any available wireless networks. The access point must be operating in which\n                    mode?",
     "text": "",
     "images": [],
@@ -2969,7 +2792,6 @@ const quizData = [
     "explanation": "Active is a mode used to configure an access point so that clients must know the SSID to connect to\n                    the access point. APs and wireless routers can operate in a mixed mode meaning that that multiple\n                    wireless standards are supported. Open is an authentication mode for an access point that has no\n                    impact on the listing of available wireless networks for a client. When an access point is\n                    configured in passive mode, the SSID is broadcast so that the name of wireless network will appear\n                    in the listing of available networks for clients."
   },
   {
-    "id": 176,
     "title": "173. Which three components are combined to form a bridge\n                    ID?",
     "text": "",
     "images": [],
@@ -2989,7 +2811,6 @@ const quizData = [
     "explanation": "The three\n                    components that are combined to form a bridge ID are bridge priority, extended system ID, and MAC\n                    address."
   },
   {
-    "id": 177,
     "title": "174. On a Cisco 3504 WLC Summary page (Advanced >\n                    Summary), which tab allows a network administrator to configure a particular WLAN with a WPA2\n                    policy?",
     "text": "",
     "images": [],
