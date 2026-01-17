@@ -147,14 +147,37 @@ const quizData = [
     "explanation": "Hosts will send an ARP request to the default gateway which is the virtual IP address. ARP replies\n                    from the HSRP routers contain the virtual MAC address. The host ARP tables will contain a mapping of\n                    the virtual IP to the virtual MAC."
   },
   {
-    "title": "10.\u00a0Match the forwarding characteristic to its type.\n                    (Not all options are used.)",
+    "type": "matching",
+    "title": "10. Match the forwarding characteristic to its type. (Not all options are used.)",
     "text": "",
-    "images": [
-      "https://itexamanswers.net/wp-content/uploads/2020/01/CCNA-2-v7-final-exam-answers-10.png"
+    "pairs": [
+      {
+        "left": "appropriate for high performance computing applications",
+        "right": "cut-through"
+      },
+      {
+        "left": "forwarding process can begin after receiving the destination address",
+        "right": "cut-through"
+      },
+      {
+        "left": "error checking before forwarding",
+        "right": "store-and-forward"
+      },
+      {
+        "left": "forwarding process only begins after receiving the entire frame",
+        "right": "store-and-forward"
+      },
+      {
+        "left": "only forwards valid frames",
+        "right": "store-and-forward"
+      },
+      {
+        "left": "may forward invalid frames",
+        "right": "cut-through"
+      },
     ],
-    "options": [],
-    "correct": [],
-    "explanation": ""
+    "distractors": [],
+    "explanation": "Cut-through switching begins forwarding after reading the destination MAC address, making it faster but unable to check for errors. Store-and-forward receives the entire frame first, performs error checking (CRC), and only forwards valid frames."
   },
   {
     "title": "11. Which statement is correct about how a Layer 2 switch\n                    determines how to forward frames?",
@@ -188,14 +211,31 @@ const quizData = [
     "explanation": "In Cisco LAN switches, the microsegmentation makes it possible for each port to represent a separate\n                    segment and thus each switch port represents a separate collision domain. This fact will not change\n                    when multiple switches are interconnected. However, LAN switches do not filter broadcast frames. A\n                    broadcast frame is flooded to all ports. Interconnected switches form one big broadcast domain."
   },
   {
-    "title": "13. Match the link state to the interface and protocol\n                    status. (Not all options are used.)",
+    "type": "matching",
+    "title": "13. Match the link state to the interface and protocol status. (Not all options are used.)",
     "text": "",
-    "images": [
-      "https://itexamanswers.net/wp-content/uploads/2020/01/CCNA-2-v7-final-exam-answers-13.png"
+    "pairs": [
+      {
+        "left": "Layer 1 problem",
+        "right": "down/down"
+      },
+      {
+        "left": "Layer 2 problem",
+        "right": "up/down"
+      },
+      {
+        "left": "Disabled",
+        "right": "administratively down"
+      },
+      {
+        "left": "Operational",
+        "right": "up/up"
+      }
     ],
-    "options": [],
-    "correct": [],
-    "explanation": ""
+    "distractors": [
+      "up/disabled"
+    ],
+    "explanation": "down/down indicates a Layer 1 (physical) problem. up/down indicates Layer 1 is working but Layer 2 (data link) has an issue. administratively down means the interface was manually disabled. up/up means the interface is fully operational."
   },
   {
     "title": "14.Refer to the exhibit. How is a frame sent from PCA\n                    forwarded to PCC if the MAC address table on switch SW1 is empty?",
@@ -230,14 +270,31 @@ const quizData = [
     "explanation": "Standard range VLANs (1-1005) are stored in a file that is called vlan.dat that is located in flash\n                    memory. Erasing the startup configuration and reloading a switch does not automatically remove these\n                    VLANs. The vlan.dat file must be manually deleted from flash memory and then the switch must be\n                    reloaded."
   },
   {
-    "title": "16. Match the description to the correct VLAN type. (Not\n                    all options are used.)",
+    "type": "matching",
+    "title": "16. Match the description to the correct VLAN type. (Not all options are used.)",
     "text": "",
-    "images": [
-      "https://itexamanswers.net/wp-content/uploads/2020/01/CCNA-2-v7-final-exam-answers-16.png"
+    "pairs": [
+      {
+        "left": "Native VLAN",
+        "right": "Carries untagged traffic"
+      },
+      {
+        "left": "Management VLAN",
+        "right": "An IP address and subnet mask are assigned to this VLAN, allowing the switch to be accessed by HTTP, Telnet, SSH, or SNMP"
+      },
+      {
+        "left": "Default VLAN",
+        "right": "All switch ports are assigned to this VLAN after initial bootup of the switch"
+      },
+      {
+        "left": "Data VLANs",
+        "right": "Configured to carry user generated traffic"
+      }
     ],
-    "options": [],
-    "correct": [],
-    "explanation": "A data VLAN is configured to carry user-generated traffic. A default VLAN is the VLAN where all\n                    switch ports belong after the initial boot up of a switch loading the default configuration. A\n                    native VLAN is assigned to an 802.1Q trunk port, and untagged traffic is placed on it. A management\n                    VLAN is any VLAN that is configured to access the management capabilities of a switch. An IP address\n                    and subnet mask are assigned to it, allowing the switch to be managed via HTTP, Telnet, SSH, or\n                    SNMP."
+    "distractors": [
+      "only accessible by the network administrator"
+    ],
+    "explanation": "The Native VLAN carries untagged traffic on trunk links. The Management VLAN has an IP for remote access. The Default VLAN (VLAN 1) contains all ports initially. Data VLANs are configured to separate user traffic."
   },
   {
     "title": "17. Refer to the exhibit. A network administrator has\n                    connected two switches together using EtherChannel technology. If STP is running, what will be the\n                    end result?",
@@ -461,7 +518,7 @@ const quizData = [
     "text": "",
     "images": [],
     "options": [
-      "They improve netw\u200bork security.",
+      "They improve netw​ork security.",
       "They take less time to converge when\n                    the network topology changes.",
       "They improve the efficiency of\n                    discovering neighboring networks.",
       "They use fewer router resources."
@@ -520,7 +577,7 @@ const quizData = [
     "explanation": "The IPv6\n                    link-local prefix is FE80::/10 and is used to create a link-local IPv6 address on an interface."
   },
   {
-    "title": "35. Which two statements are characteristics of routed\n                    ports on a multilayer switch? (Choose two.)\u200b",
+    "title": "35. Which two statements are characteristics of routed\n                    ports on a multilayer switch? (Choose two.)​",
     "text": "",
     "images": [],
     "options": [
@@ -558,7 +615,7 @@ const quizData = [
     "options": [
       "interface port-channel 2",
       "channel-group 1 mode desirable",
-      "interface range GigabitEthernet 0/4 \u2013 5",
+      "interface range GigabitEthernet 0/4 – 5",
       "channel-group 2 mode auto"
     ],
     "correct": [
@@ -648,24 +705,49 @@ const quizData = [
     "explanation": ""
   },
   {
-    "title": "43. Match the step to each switch boot sequence\n                    description. (Not all options are used.)",
-    "text": "Explanation: The steps\n                    are:\n1. execute POST\n2. load the boot loader from ROM\n3. CPU register initializations\n4. flash file system initialization\n\n5. load the IOS\n6. transfer switch control to the IOS",
-    "images": [
-      "https://itexamanswers.net/wp-content/uploads/2020/01/2021-11-15_105846-ans.jpg"
+    "type": "matching",
+    "title": "43. Match the step to each switch boot sequence description. (Not all options are used.)",
+    "text": "",
+    "pairs": [
+      {
+        "left": "Step 1",
+        "right": "execute POST"
+      },
+      {
+        "left": "Step 2",
+        "right": "load the boot loader from ROM"
+      },
+      {
+        "left": "Step 3",
+        "right": "perform low-level CPU initialization"
+      },
+      {
+        "left": "Step 4",
+        "right": "flash file system initialization"
+      },
+      {
+        "left": "Step 5",
+        "right": "load the IOS"
+      },
+      {
+        "left": "Step 6",
+        "right": "transfer switch control to the IOS"
+      }
     ],
-    "options": [],
-    "correct": [],
-    "explanation": "The steps\n                    are:\n1. execute POST\n2. load the boot loader from ROM\n3. CPU register initializations\n4. flash file system initialization\n\n5. load the IOS\n6. transfer switch control to the IOS"
+    "distractors": [
+      "enter global configuration mode"
+    ],
+    "explanation": "The switch boot sequence: 1) POST tests hardware, 2) boot loader loads from ROM, 3) low-level CPU init, 4) flash file system init, 5) IOS loads, 6) control transfers to IOS."
   },
   {
-    "title": "44. Refer to the exhibit. R1 has been configured as shown.\n                    However, PC1 is not able to receive an IPv4 address. What is the problem?\u200b",
+    "title": "44. Refer to the exhibit. R1 has been configured as shown.\n                    However, PC1 is not able to receive an IPv4 address. What is the problem?​",
     "text": "",
     "images": [
       "https://itexamanswers.net/wp-content/uploads/2020/01/rx9.png"
     ],
     "options": [
       "The ip helper-address command was applied on the wrong\n                    interface.",
-      "R1 is not configured as a DHCPv4\n                    server.\u200b",
+      "R1 is not configured as a DHCPv4\n                    server.​",
       "A DHCP server must be installed on the\n                    same LAN as the host that is receiving the IP address.",
       "The ip address dhcp command was not\n                    issued on the interface Gi0/1."
     ],
@@ -685,11 +767,11 @@ const quizData = [
       "MAC address filtering is enabled.",
       "WEP encryption is enabled.",
       "The wireless channel is automatically selected.",
-      "A well-known administrator password is set.",
+      "A well-known administrator password is set."
     ],
     "correct": [
       0,
-      4,
+      4
     ],
     "explanation": "Default settings on wireless routers often include broadcasting the SSID and using a well-known\n                    administrative password. Both of these pose a security risk to wireless networks. WEP encryption and\n                    MAC address filtering are not set by default. The automatic selection of the wireless channel poses\n                    no security risks."
   },
@@ -778,10 +860,10 @@ const quizData = [
       "rogue switches on a network",
       "CAM table overflow attacks",
       "MAC address spoofing",
-      "rogue DHCP servers on a network",
+      "rogue DHCP servers on a network"
     ],
     "correct": [
-      0,
+      0
     ],
     "explanation": "Explain: DAI\n                    relies on DHCP snooping. DHCP snooping listens to DHCP message exchanges and builds a bindings\n                    database of valid tuples (MAC address, IP address, VLAN interface).\nWhen DAI is enabled, the switch drops\n                    ARP packet if the sender MAC address and sender IP address do not match an entry in the DHCP\n                    snooping bindings database. However, it can be overcome through static mappings. Static mappings are\n                    useful when hosts configure static IP addresses, DHCP snooping cannot be run, or other switches in\n                    the network do not run dynamic ARP inspection. A static mapping associates an IP address to a MAC\n                    address on a VLAN."
   },
@@ -801,7 +883,7 @@ const quizData = [
     "explanation": "Explain: The\n                    problem with the current floating static route is that the administrative distance is set too low.\n                    The administrative distance will need to be higher than that of OSPF, which is 110, so that the\n                    router will only use the OSPF link when it is up."
   },
   {
-    "title": "53. Refer to the exhibit. Router R1 has an OSPF neighbor\n                    relationship with the ISP router over the 192.168.0.32 network. The 192.168.0.36 network link should\n                    serve as a backup when the OSPF link goes down. The floating static route command ip route 0.0.0.0\n                    0.0.0.0 S0/0/1 100 was issued on R1 and now traffic is using the backup link even when the OSPF link\n                    is up and functioning. Which change should be made to the static route command so that traffic will\n                    only use the OSPF link when it is up?\u200b",
+    "title": "53. Refer to the exhibit. Router R1 has an OSPF neighbor\n                    relationship with the ISP router over the 192.168.0.32 network. The 192.168.0.36 network link should\n                    serve as a backup when the OSPF link goes down. The floating static route command ip route 0.0.0.0\n                    0.0.0.0 S0/0/1 100 was issued on R1 and now traffic is using the backup link even when the OSPF link\n                    is up and functioning. Which change should be made to the static route command so that traffic will\n                    only use the OSPF link when it is up?​",
     "text": "",
     "images": [
       "https://itexamanswers.net/wp-content/uploads/2016/02/i210868v1n2_210868.gif"
@@ -862,11 +944,11 @@ const quizData = [
       "https://itexamanswers.net/wp-content/uploads/2020/01/CCNA-2-v7-exam-answers-56.png"
     ],
     "options": [
-      "ipv6 nd\n                    other-config-flag\u200b",
-      "prefix-delegation 2001:DB8:8::/48\n                    00030001000E84244E70\u200b",
-      "ipv6 dhcp server LAN1\u200b",
+      "ipv6 nd\n                    other-config-flag​",
+      "prefix-delegation 2001:DB8:8::/48\n                    00030001000E84244E70​",
+      "ipv6 dhcp server LAN1​",
       "ipv6 unicast-routing",
-      "dns-server 2001:DB8:8::8\u200b"
+      "dns-server 2001:DB8:8::8​"
     ],
     "correct": [
       0
@@ -886,7 +968,10 @@ const quizData = [
       "(config)# ip routing",
       "(config)# interface fastethernet0/4 \n (config-if)# switchport mode trunk"
     ],
-    "correct": [0, 3],
+    "correct": [
+      0,
+      3
+    ],
     "explanation": ""
   },
   {
@@ -1243,7 +1328,7 @@ const quizData = [
     "correct": [
       1
     ],
-    "explanation": "In port security implementation, an interface can be configured for one of three violation\n                    modes:\nProtect \u2013 a port security violation causes the interface to drop\n                    packets with unknown source addresses and no notification is sent that a security violation has\n                    occurred.\nRestrict \u2013 a port security violation causes the interface to drop\n                    packets with unknown source addresses and to send a notification that a security violation has\n                    occurred.\nShutdown \u2013 a port security violation causes the interface to\n                    immediately become error-disabled and turns off the port LED. No notification is sent that a\n                    security violation has occurred."
+    "explanation": "In port security implementation, an interface can be configured for one of three violation\n                    modes:\nProtect – a port security violation causes the interface to drop\n                    packets with unknown source addresses and no notification is sent that a security violation has\n                    occurred.\nRestrict – a port security violation causes the interface to drop\n                    packets with unknown source addresses and to send a notification that a security violation has\n                    occurred.\nShutdown – a port security violation causes the interface to\n                    immediately become error-disabled and turns off the port LED. No notification is sent that a\n                    security violation has occurred."
   },
   {
     "title": "80. What protocol or technology defines a group of\n                    routers, one of them defined as active and another one as standby?",
@@ -1289,11 +1374,15 @@ const quizData = [
       "dynamic desirable - dynamic desirable",
       "dynamic desirable - dynamic auto"
     ],
-    "correct": [2, 4, 5],
+    "correct": [
+      2,
+      4,
+      5
+    ],
     "explanation": ""
   },
   {
-    "title": "83. A technician is configuring a router for a small\n                    company with multiple WLANs and doesn\u2019t need the complexity of a dynamic routing protocol. What\n                    should be done or checked?",
+    "title": "83. A technician is configuring a router for a small\n                    company with multiple WLANs and doesn’t need the complexity of a dynamic routing protocol. What\n                    should be done or checked?",
     "text": "",
     "images": [],
     "options": [
@@ -1449,14 +1538,31 @@ const quizData = [
     "explanation": "Before a host can actually configure and use an IPv6 address learned through SLAAC or DHCP, the host\n                    must verify that no other host is already using that address. To verify that the address is indeed\n                    unique, the host sends an ICMPv6 neighbor solicitation to the address. If no neighbor advertisement\n                    is returned, the host considers the address to be unique and configures it on the interface."
   },
   {
-    "title": "93. Match the purpose with its DHCP message type. (Not all\n                    options are used.)",
+    "type": "matching",
+    "title": "93. Match the purpose with its DHCP message type. (Not all options are used.)",
     "text": "",
-    "images": [
-      "https://itexamanswers.net/wp-content/uploads/2020/01/2020-01-20_232028.jpg"
+    "pairs": [
+      {
+        "left": "a message that is used to locate any available DHCP server on a network",
+        "right": "DHCPDISCOVER"
+      },
+      {
+        "left": "a message that is used to identify the explicit server and lease offer to accept",
+        "right": "DHCPREQUEST"
+      },
+      {
+        "left": "a message that is used to acknowledge that the lease is successful",
+        "right": "DHCPACK"
+      },
+      {
+        "left": "a message that is used to suggest a lease to a client",
+        "right": "DHCPOFFER"
+      }
     ],
-    "options": [],
-    "correct": [],
-    "explanation": ""
+    "distractors": [
+      "DHCPNAK"
+    ],
+    "explanation": "DHCPDISCOVER finds servers, DHCPOFFER suggests a lease, DHCPREQUEST accepts an offer, DHCPACK confirms the lease. DHCPNAK would reject a request."
   },
   {
     "title": "94. Which protocol adds security to remote\n                    connections?",
@@ -1511,19 +1617,31 @@ const quizData = [
     "explanation": ""
   },
   {
-    "title": "97. Match each DHCP message type with its description.\n                    (Not all options are used.)",
+    "type": "matching",
+    "title": "97. Match each DHCP message type with its description. (Not all options are used.)",
     "text": "",
-    "images": [
-      "https://itexamanswers.net/wp-content/uploads/2019/12/2020-01-20_225135.jpg"
+    "pairs": [
+      {
+        "left": "DHCPDISCOVER",
+        "right": "a client initiating a message to find a DHCP server"
+      },
+      {
+        "left": "DHCPOFFER",
+        "right": "a DHCP server responding to the initial request by a client"
+      },
+      {
+        "left": "DHCPREQUEST",
+        "right": "the client accepting the IP address provided by the DHCP server"
+      },
+      {
+        "left": "DHCPACK",
+        "right": "the DHCP server confirming that the address lease has been accepted"
+      }
     ],
-    "options": [
-      "a client initiating a message to find a\n                    DHCP server \u2013 DHCPDISCOVER",
-      "a DHCP server responding to the initial\n                    request by a client \u2013 DHCPOFFER",
-      "the client accepting the IP address\n                    provided by the DHCP server \u2013 DHCPREQUEST",
-      "the DHCP server confirming that the\n                    lease has been accepted \u2013 DHCPACK"
+    "distractors": [
+      "DHCPNACK"
     ],
-    "correct": [],
-    "explanation": "Place the options in the following order:\n\na client initiating a message to find a\n                    DHCP server \u2013 DHCPDISCOVER\na DHCP server responding to the initial\n                    request by a client \u2013 DHCPOFFER\nthe client accepting the IP address\n                    provided by the DHCP server \u2013 DHCPREQUEST\nthe DHCP server confirming that the\n                    lease has been accepted \u2013 DHCPACK"
+    "explanation": "The DHCP DORA process: Discover (client broadcasts to find servers), Offer (server responds with IP offer), Request (client accepts the offer), Acknowledge (server confirms the lease)."
   },
   {
     "title": "98. What network attack seeks to create a DoS for clients\n                    by preventing them from being able to obtain a DHCP lease?",
@@ -1690,14 +1808,32 @@ const quizData = [
     "explanation": "Mitigating a VLAN attack can be done by disabling Dynamic Trunking Protocol (DTP), manually setting\n                    ports to trunking mode, and by setting the native VLAN of trunk links to VLANs not in use."
   },
   {
-    "title": "108. Match the DHCP message types to the order of the\n                    DHCPv4 process. (Not all options are used.)",
+    "type": "matching",
+    "title": "108. Match the DHCP message types to the order of the DHCPv4 process. (Not all options are used.)",
     "text": "",
-    "images": [
-      "https://itexamanswers.net/wp-content/uploads/2020/01/2021-11-16_223240.png"
+    "pairs": [
+      {
+        "left": "Step 1",
+        "right": "DHCPDISCOVER"
+      },
+      {
+        "left": "Step 2",
+        "right": "DHCPOFFER"
+      },
+      {
+        "left": "Step 3",
+        "right": "DHCPREQUEST"
+      },
+      {
+        "left": "Step 4",
+        "right": "DHCPACK"
+      }
     ],
-    "options": [],
-    "correct": [],
-    "explanation": "The\n                    broadcast DHCPDISCOVER message finds DHCPv4 servers on the network. When the DHCPv4 server receives\n                    a DHCPDISCOVER message, it reserves an available IPv4 address to lease to the client and sends the\n                    unicast DHCPOFFER message to the requesting client. When the client receives the DHCPOFFER from the\n                    server, it sends back a DHCPREQUEST. On receiving the DHCPREQUEST message the server replies with a\n                    unicast DHCPACK message. DHCPREPLY and DHCPINFORMATION-REQUEST are DHCPv6 messages."
+    "distractors": [
+      "DHCPREPLY",
+      "DHCPINFORMATION-REQUEST"
+    ],
+    "explanation": "The DHCPv4 process follows the DORA sequence: 1) DHCPDISCOVER - client broadcasts to find servers, 2) DHCPOFFER - server offers an IP, 3) DHCPREQUEST - client requests the offered IP, 4) DHCPACK - server acknowledges and finalizes the lease."
   },
   {
     "title": "109. In which situation would a technician use the show\n                    interfaces switch command?",
@@ -1815,14 +1951,27 @@ const quizData = [
     "explanation": ""
   },
   {
-    "title": "116. Match the step number to the sequence of stages that occur\n                    during the HSRP failover process. (Not all options are used.)",
+    "type": "matching",
+    "title": "116. Match the step number to the sequence of stages that occur during the HSRP failover process. (Not all options are used.)",
     "text": "",
-    "images": [
-      "https://itexamanswers.net/wp-content/uploads/2020/01/2020-04-28_074010.jpg"
+    "pairs": [
+      {
+        "left": "Step 1",
+        "right": "The forwarding router fails."
+      },
+      {
+        "left": "Step 2",
+        "right": "The standby router stops seeing hello messages from the forwarding router."
+      },
+      {
+        "left": "Step 3",
+        "right": "The standby router assumes the role of the forwarding router using both the IP and MAC addresses of the virtual router."
+      }
     ],
-    "options": [],
-    "correct": [],
-    "explanation": "Hot\n                    Standby Router Protocol (HSRP) is a Cisco-proprietary protocol that is designed to allow for\n                    transparent failover of a first-hop IPv4 device."
+    "distractors": [
+      "The host initiates an ARP request for the MAC address of the new forwarding router."
+    ],
+    "explanation": "HSRP failover: 1) The active/forwarding router fails, 2) The standby router detects the failure by missing hello messages, 3) The standby assumes the forwarding role with the virtual IP and MAC, so hosts don't need to update their ARP cache."
   },
   {
     "title": "117. On a Cisco 3504 WLC Summary page ( Advanced >\n                    Summary ), which tab allows a network administrator to configure a particular WLAN with a WPA2\n                    policy?",
@@ -1840,7 +1989,7 @@ const quizData = [
     "explanation": "The WLANs tab in the Cisco\n                    3504 WLC advanced Summary page allows a user to access the configuration of WLANs\n                    including security, QoS, and policy-mapping."
   },
   {
-    "title": "118. Refer to the exhibit. A network engineer is configuring\n                    IPv6 routing on the network. Which command issued on router HQ will configure a default route to the\n                    Internet to forward packets to an IPv6 destination network that is not listed in the routing\n                    table?\u200b",
+    "title": "118. Refer to the exhibit. A network engineer is configuring\n                    IPv6 routing on the network. Which command issued on router HQ will configure a default route to the\n                    Internet to forward packets to an IPv6 destination network that is not listed in the routing\n                    table?​",
     "text": "",
     "images": [
       "https://itexamanswers.net/wp-content/uploads/2020/01/2020-04-28_073221.jpg"
@@ -1914,7 +2063,11 @@ const quizData = [
       "assigning the ports to the native\n                    VLAN",
       "modifying the default VLAN"
     ],
-    "correct": [0, 2, 3],
+    "correct": [
+      0,
+      2,
+      3
+    ],
     "explanation": ""
   },
   {
@@ -1924,13 +2077,17 @@ const quizData = [
     "options": [
       "installing a static route",
       "assigning the ports to the native\n                    VLAN",
-      "entering \u201cno\n                    switchport\u201d on the port connected to the router",
+      "entering “no\n                    switchport” on the port connected to the router",
       "modifying the default VLAN",
       "assigning ports to VLANs",
       "enabling IP routing",
       "adjusting the route metric"
     ],
-    "correct": [2, 4, 5],
+    "correct": [
+      2,
+      4,
+      5
+    ],
     "explanation": ""
   },
   {
@@ -1946,7 +2103,11 @@ const quizData = [
       "installing a static route",
       "creating VLANs"
     ],
-    "correct": [2, 4, 6],
+    "correct": [
+      2,
+      4,
+      6
+    ],
     "explanation": ""
   },
   {
@@ -1960,9 +2121,13 @@ const quizData = [
       "deleting the default VLAN",
       "enabling IP routing",
       "installing a static route",
-      "entering \u201cno\n                    switchport\u201d on the port connected to the router"
+      "entering “no\n                    switchport” on the port connected to the router"
     ],
-    "correct": [0, 4, 6],
+    "correct": [
+      0,
+      4,
+      6
+    ],
     "explanation": ""
   },
   {
@@ -1978,7 +2143,11 @@ const quizData = [
       "assigning the ports to the native\n                    VLAN",
       "creating SVI interfaces"
     ],
-    "correct": [1, 4, 6],
+    "correct": [
+      1,
+      4,
+      6
+    ],
     "explanation": ""
   },
   {
@@ -1994,7 +2163,11 @@ const quizData = [
       "implementing a routing protocol",
       "creating SVI interfaces"
     ],
-    "correct": [0, 2, 6],
+    "correct": [
+      0,
+      2,
+      6
+    ],
     "explanation": ""
   },
   {
@@ -2007,10 +2180,14 @@ const quizData = [
       "assigning the ports to the native\n                    VLAN",
       "adjusting the route metric",
       "modifying the default VLAN",
-      "entering \u201cno\n                    switchport\u201d on the port connected to the router",
+      "entering “no\n                    switchport” on the port connected to the router",
       "assigning ports to VLANs"
     ],
-    "correct": [1, 5, 6],
+    "correct": [
+      1,
+      5,
+      6
+    ],
     "explanation": "Steps to\n                    configure Layer 3 switch to route with a router:\nStep 1. Configure the routed port.\n\nStep 2. Enable routing.\nStep 3. Configure routing.\nStep 4. Verify routing.\nStep 5. Verify connectivity.\nReference:\n4.3.8 Packet Tracer Configure Layer\n                    3 Switching and inter VLAN Routing"
   },
   {
@@ -2131,7 +2308,7 @@ const quizData = [
     "explanation": "Before the\n                    switch is put in the correct VTP domain and in client mode, the switch must be connected to any\n                    other switch in the VTP domain through a trunk in order to receive/transmit VTP information."
   },
   {
-    "title": "130. Refer to the exhibit. Consider that the main power\n                    has just been restored. PC3 issues a broadcast IPv4 DHCP request. To which port will SW1 forward\n                    this request?\u200b",
+    "title": "130. Refer to the exhibit. Consider that the main power\n                    has just been restored. PC3 issues a broadcast IPv4 DHCP request. To which port will SW1 forward\n                    this request?​",
     "text": "",
     "images": [
       "https://itexamanswers.net/wp-content/uploads/2020/01/i245718v1n1_1.png"
@@ -2139,8 +2316,8 @@ const quizData = [
     "options": [
       "to Fa0/1, Fa0/2, and\n                    Fa0/3 only",
       "to Fa0/1, Fa0/2, Fa0/3, and Fa0/4",
-      "to Fa0/1 only\u200b",
-      "to Fa0/1, Fa0/2, and Fa0/4 only\u200b",
+      "to Fa0/1 only​",
+      "to Fa0/1, Fa0/2, and Fa0/4 only​",
       "to Fa0/1 and Fa0/2 only"
     ],
     "correct": [
@@ -2158,7 +2335,9 @@ const quizData = [
       "The switch adds the MAC\n                    address and incoming port number to the table.",
       "The switch adds a MAC address table\n                    entry mapping for the destination MAC address and the ingress port."
     ],
-    "correct": [2],
+    "correct": [
+      2
+    ],
     "explanation": ""
   },
   {
@@ -2181,7 +2360,7 @@ const quizData = [
     "text": "",
     "images": [],
     "options": [
-      "Use the\n                    \u201cshow ip interface brief\u201d command to see if an interface is down.",
+      "Use the\n                    “show ip interface brief” command to see if an interface is down.",
       "Verify that there is not a default\n                    route in any of the edge router routing tables.",
       "Create static routes to all internal\n                    networks and a default route to the internet.",
       "Check the statistics on the default\n                    route for oversaturation."
@@ -2259,7 +2438,7 @@ const quizData = [
     "images": [],
     "options": [
       "Verify that the static route to the\n                    server is present in the routing table.",
-      "Use the\n                    \u201cshow ip interface brief\u201d command to see if an interface is down.",
+      "Use the\n                    “show ip interface brief” command to see if an interface is down.",
       "Check the configuration on the floating\n                    static route and adjust the AD.",
       "Create a floating static route to that\n                    network."
     ],
@@ -2818,11 +2997,11 @@ const quizData = [
       "SECURITY",
       "WIRELESS",
       "WLANs",
-      "MANAGEMENT",
+      "MANAGEMENT"
     ],
     "correct": [
       2
     ],
     "explanation": ""
-  },
-]
+  }
+];
