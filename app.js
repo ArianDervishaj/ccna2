@@ -58,9 +58,9 @@ function applyFilterAndSort() {
             case 'unanswered':
                 return stats.attempts === 0;
             case 'learning':
-                return stats.attempts > 0 && rate >= 0.5 && rate <= 0.9;
+                return stats.attempts > 0 && rate >= 0.5 && rate < 0.75;
             case 'mastered':
-                return stats.attempts > 0 && rate > 0.9;
+                return stats.attempts > 0 && rate >= 0.75;
             default:
                 return true;
         }
@@ -126,9 +126,9 @@ function renderControls() {
                 <select id="filter-select" onchange="changeFilter(this.value)">
                     <option value="all">All (${quizData.length})</option>
                     <option value="struggling">Struggling (&lt;50%)</option>
-                    <option value="learning">Learning (&gt;50% et &lt;90)</option>
+                    <option value="learning">Learning (50% - 74%)</option>
                     <option value="unanswered">Unanswered</option>
-                    <option value="mastered">Mastered (&gt;90%)</option>
+                    <option value="mastered">Mastered (≥75%)</option>
                 </select>
             </div>
             <div class="filter-group">
@@ -159,7 +159,7 @@ function updateFilterCounts() {
         
         if (stats.attempts === 0) countUnanswered++;
         else if (rate < 0.5) countStruggling++;
-        else if (rate > 0.9) countMastered++;
+        else if (rate >= 0.75) countMastered++;
         else countLearning++;
     });
     
@@ -167,9 +167,9 @@ function updateFilterCounts() {
     if (select) {
         select.options[0].text = `All (${countAll})`;
         select.options[1].text = `Struggling <50% (${countStruggling})`;
-        select.options[2].text = `Learning >50% <90% (${countLearning})`;
+        select.options[2].text = `Learning 50-74% (${countLearning})`;
         select.options[3].text = `Unanswered (${countUnanswered})`;
-        select.options[4].text = `Mastered >90% (${countMastered})`;
+        select.options[4].text = `Mastered ≥75% (${countMastered})`;
     }
 }
 
@@ -253,7 +253,7 @@ function getStatsHtml(questionId) {
     }
     const rate = Math.round((stats.correct / stats.attempts) * 100);
     let className = 'neutral';
-    if (rate > 90) className = 'mastered';
+    if (rate >= 75) className = 'mastered';
     else if (rate < 50) className = 'struggling';
     return `<span class="q-stats ${className}">${stats.correct}/${stats.attempts}</span>`;
 }
