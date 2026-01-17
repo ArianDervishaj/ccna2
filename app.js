@@ -54,9 +54,11 @@ function applyFilterAndSort() {
         
         switch (currentFilter) {
             case 'struggling':
-                return stats.attempts > 0 && rate < 0.5;
+                return stats.attempts > 0 && rate <= 0.5;
             case 'unanswered':
                 return stats.attempts === 0;
+            case 'learning':
+                return stats.attempts > 0 && rate >= 0.5 && rate <= 0.9;
             case 'mastered':
                 return stats.attempts > 0 && rate > 0.9;
             default:
@@ -124,6 +126,7 @@ function renderControls() {
                 <select id="filter-select" onchange="changeFilter(this.value)">
                     <option value="all">All (${quizData.length})</option>
                     <option value="struggling">Struggling (&lt;50%)</option>
+                    <option value="learning">Learning (&gt;50% et &lt;90)</option>
                     <option value="unanswered">Unanswered</option>
                     <option value="mastered">Mastered (&gt;90%)</option>
                 </select>
@@ -146,6 +149,7 @@ function updateFilterCounts() {
     const allStats = loadStats();
     let countAll = quizData.length;
     let countStruggling = 0;
+    let countLearning = 0;
     let countUnanswered = 0;
     let countMastered = 0;
     
@@ -156,12 +160,14 @@ function updateFilterCounts() {
         if (stats.attempts === 0) countUnanswered++;
         else if (rate < 0.5) countStruggling++;
         else if (rate > 0.9) countMastered++;
+        else countLearning++;
     });
     
     const select = document.getElementById('filter-select');
     if (select) {
         select.options[0].text = `All (${countAll})`;
         select.options[1].text = `Struggling <50% (${countStruggling})`;
+        select.options[1].text = `Learning >50% <90% (${countLearning})`;
         select.options[2].text = `Unanswered (${countUnanswered})`;
         select.options[3].text = `Mastered >90% (${countMastered})`;
     }
