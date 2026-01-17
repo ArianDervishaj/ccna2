@@ -1559,9 +1559,7 @@ const quizData = [
         "right": "DHCPOFFER"
       }
     ],
-    "distractors": [
-      "DHCPNAK"
-    ],
+    "distractors": ["DHCPNACK"],
     "explanation": "DHCPDISCOVER finds servers, DHCPOFFER suggests a lease, DHCPREQUEST accepts an offer, DHCPACK confirms the lease. DHCPNAK would reject a request."
   },
   {
@@ -1638,7 +1636,7 @@ const quizData = [
         "right": "the DHCP server confirming that the address lease has been accepted"
       }
     ],
-    "distractors": [
+    "distractors_left": [
       "DHCPNACK"
     ],
     "explanation": "The DHCP DORA process: Discover (client broadcasts to find servers), Offer (server responds with IP offer), Request (client accepts the offer), Acknowledge (server confirms the lease)."

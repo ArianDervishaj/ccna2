@@ -111,32 +111,53 @@ function renderMatchingQuestion(card, q, index) {
     const shuffledLeft = shuffle(q.pairs.map((p, i) => ({ text: p.left, originalIndex: i })));
     const shuffledRight = shuffle(q.pairs.map((p, i) => ({ text: p.right, originalIndex: i })));
     
-    // Add distractors to right side if present
-    if (q.distractors && q.distractors.length > 0) {
-        q.distractors.forEach(d => {
+    // Add distractors to right side if present (supports both old 'distractors' and new 'distractors_right')
+    const rightDistractors = q.distractors_right || q.distractors || [];
+    if (rightDistractors.length > 0) {
+        rightDistractors.forEach(d => {
             shuffledRight.push({ text: d, originalIndex: -1 }); // -1 = distractor
         });
-        // Re-shuffle with distractors
-        const reshuffled = shuffle(shuffledRight);
+        const reshuffledRight = shuffle(shuffledRight);
         shuffledRight.length = 0;
-        reshuffled.forEach(item => shuffledRight.push(item));
+        reshuffledRight.forEach(item => shuffledRight.push(item));
+    }
+    
+    // Add distractors to left side if present
+    const leftDistractors = q.distractors_left || [];
+    if (leftDistractors.length > 0) {
+        leftDistractors.forEach(d => {
+            shuffledLeft.push({ text: d, originalIndex: -2 }); // -2 = left distractor
+        });
+        const reshuffledLeft = shuffle(shuffledLeft);
+        shuffledLeft.length = 0;
+        reshuffledLeft.forEach(item => shuffledLeft.push(item));
     }
 
-    // Build correct mapping: leftShuffledIndex -> rightShuffledIndex
+    // Build correct mapping: leftShuffledIndex -> rightShuffledIndex (excluding left distractors)
     const correctMapping = {};
     shuffledLeft.forEach((leftItem, leftIdx) => {
+        // Skip left distractors (originalIndex -2)
+        if (leftItem.originalIndex < 0) return;
         const rightIdx = shuffledRight.findIndex(r => r.originalIndex === leftItem.originalIndex);
         correctMapping[leftIdx] = rightIdx;
+    });
+    
+    // Track which left items are distractors (for display purposes)
+    const leftDistractorIndices = [];
+    shuffledLeft.forEach((item, idx) => {
+        if (item.originalIndex === -2) leftDistractorIndices.push(idx);
     });
 
     let leftHtml = '';
     shuffledLeft.forEach((item, idx) => {
-        leftHtml += `<div class="match-item match-left" data-idx="${idx}" onclick="selectMatchLeft(this, ${index})">${item.text}</div>`;
+        const isDistractor = item.originalIndex === -2;
+        leftHtml += `<div class="match-item match-left ${isDistractor ? 'is-distractor' : ''}" data-idx="${idx}" data-distractor="${isDistractor}" onclick="selectMatchLeft(this, ${index})">${item.text}</div>`;
     });
 
     let rightHtml = '';
     shuffledRight.forEach((item, idx) => {
-        rightHtml += `<div class="match-item match-right" data-idx="${idx}" onclick="selectMatchRight(this, ${index})">${item.text}</div>`;
+        const isDistractor = item.originalIndex === -1;
+        rightHtml += `<div class="match-item match-right ${isDistractor ? 'is-distractor' : ''}" data-idx="${idx}" data-distractor="${isDistractor}" onclick="selectMatchRight(this, ${index})">${item.text}</div>`;
     });
 
     card.innerHTML = `
@@ -146,7 +167,7 @@ function renderMatchingQuestion(card, q, index) {
         </div>
         <div class="q-text">${q.text || ''}</div>
         
-        <div class="match-container" id="match-${index}" data-correct='${JSON.stringify(correctMapping)}'>
+        <div class="match-container" id="match-${index}" data-correct='${JSON.stringify(correctMapping)}' data-left-distractors='${JSON.stringify(leftDistractorIndices)}'>
             <div class="match-column match-column-left">
                 ${leftHtml}
             </div>
@@ -294,6 +315,7 @@ window.checkMatchAnswer = function(qIndex) {
 
     const userMatches = JSON.parse(card.dataset.userMatches);
     const correctMapping = JSON.parse(container.dataset.correct);
+    const leftDistractorIndices = JSON.parse(container.dataset.leftDistractors || '[]');
 
     const totalPairs = Object.keys(correctMapping).length;
     const matchedPairs = Object.keys(userMatches).length;
@@ -310,6 +332,7 @@ window.checkMatchAnswer = function(qIndex) {
     const linesContainer = document.getElementById(`lines-${qIndex}`);
     const svg = linesContainer.querySelector('svg');
 
+    // Check correct mappings (non-distractor left items)
     for (let leftIdx in correctMapping) {
         const expectedRight = correctMapping[leftIdx];
         const userRight = userMatches[leftIdx];
@@ -333,6 +356,29 @@ window.checkMatchAnswer = function(qIndex) {
             rightEl?.classList.add('match-correct');
         } else {
             allCorrect = false;
+            leftEl?.classList.add('match-wrong');
+            rightEl?.classList.add('match-wrong');
+        }
+    }
+
+    // Check if user matched any left distractors (always wrong)
+    for (let leftIdx in userMatches) {
+        if (leftDistractorIndices.includes(parseInt(leftIdx))) {
+            allCorrect = false;
+            const rightIdx = userMatches[leftIdx];
+            
+            // Color the line red
+            if (svg) {
+                const line = svg.querySelector(`line[data-left="${leftIdx}"]`);
+                if (line) {
+                    line.setAttribute('stroke', '#dc3545');
+                    line.setAttribute('stroke-width', '3');
+                }
+            }
+            
+            // Mark both items as wrong
+            const leftEl = container.querySelector(`.match-left[data-idx="${leftIdx}"]`);
+            const rightEl = container.querySelector(`.match-right[data-idx="${rightIdx}"]`);
             leftEl?.classList.add('match-wrong');
             rightEl?.classList.add('match-wrong');
         }
