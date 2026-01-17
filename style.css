@@ -5,6 +5,100 @@ body {
     padding-top: 80px;
 }
 
+/* ========== CONTROLS ========== */
+.controls {
+    max-width: 800px;
+    margin: 0 auto 20px;
+    padding: 15px 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-group label {
+    font-weight: 600;
+    color: #555;
+}
+
+.filter-group select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+}
+
+.filter-group select:hover {
+    border-color: #3498db;
+}
+
+.btn-reset {
+    margin-left: auto;
+    padding: 8px 16px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-reset:hover {
+    background: #c0392b;
+}
+
+.no-questions {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 1.1em;
+}
+
+/* ========== QUESTION STATS BADGE ========== */
+.q-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.q-stats {
+    font-size: 0.8em;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.q-stats.unanswered {
+    background: #e9ecef;
+    color: #666;
+}
+
+.q-stats.struggling {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.q-stats.neutral {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.q-stats.mastered {
+    background: #d4edda;
+    color: #155724;
+}
+
 /* Sticky Score Header */
 .score-bar {
     position: fixed;
@@ -289,6 +383,24 @@ body {
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 600px) {
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-group {
+        justify-content: space-between;
+    }
+    
+    .filter-group select {
+        flex: 1;
+    }
+    
+    .btn-reset {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
     .match-container {
         flex-direction: column;
         gap: 10px;

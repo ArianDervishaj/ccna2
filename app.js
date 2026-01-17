@@ -1,9 +1,93 @@
 // 'quizData' is available globally from quiz_data.js
 
-let stats = {
+// ========== PERSISTENCE ==========
+const STORAGE_KEY = 'ccna2_quiz_stats';
+
+function loadStats() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+        return {};
+    }
+}
+
+function saveStats(questionStats) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(questionStats));
+}
+
+function getQuestionStats(questionId) {
+    const allStats = loadStats();
+    return allStats[questionId] || { attempts: 0, correct: 0 };
+}
+
+function recordAnswer(questionId, isCorrect) {
+    const allStats = loadStats();
+    if (!allStats[questionId]) {
+        allStats[questionId] = { attempts: 0, correct: 0 };
+    }
+    allStats[questionId].attempts++;
+    if (isCorrect) {
+        allStats[questionId].correct++;
+    }
+    saveStats(allStats);
+}
+
+function getSuccessRate(questionId) {
+    const stats = getQuestionStats(questionId);
+    if (stats.attempts === 0) return -1; // Unanswered
+    return stats.correct / stats.attempts;
+}
+
+// ========== FILTERING & SORTING ==========
+let currentFilter = 'all';
+let currentSort = 'default';
+let filteredQuiz = [];
+
+function applyFilterAndSort() {
+    const allStats = loadStats();
+    
+    // Filter
+    filteredQuiz = quizData.filter(q => {
+        const stats = allStats[q.id] || { attempts: 0, correct: 0 };
+        const rate = stats.attempts > 0 ? stats.correct / stats.attempts : -1;
+        
+        switch (currentFilter) {
+            case 'struggling':
+                return stats.attempts > 0 && rate < 0.5;
+            case 'unanswered':
+                return stats.attempts === 0;
+            case 'mastered':
+                return stats.attempts > 0 && rate > 0.9;
+            default:
+                return true;
+        }
+    });
+    
+    // Sort
+    if (currentSort === 'success-rate') {
+        filteredQuiz.sort((a, b) => {
+            const rateA = getSuccessRate(a.id);
+            const rateB = getSuccessRate(b.id);
+            // Unanswered (-1) goes to the end
+            if (rateA === -1 && rateB === -1) return 0;
+            if (rateA === -1) return 1;
+            if (rateB === -1) return -1;
+            return rateA - rateB; // Lowest first
+        });
+    } else {
+        // Default: shuffle
+        filteredQuiz = shuffle(filteredQuiz);
+    }
+    
+    return filteredQuiz;
+}
+
+// ========== SESSION STATS ==========
+let sessionStats = {
     correct: 0,
     wrong: 0,
-    total: quizData.length,
+    total: 0,
     answered: 0
 };
 
@@ -23,27 +107,116 @@ function shuffle(array) {
     return arr;
 }
 
-const shuffledQuiz = shuffle(quizData);
-
 function init() {
+    renderControls();
+    applyFilterAndSort();
+    sessionStats.total = filteredQuiz.length;
     updateScoreboard();
     renderQuestions();
 }
 
-function updateScoreboard() {
-    elCorrect.textContent = stats.correct;
-    elWrong.textContent = stats.wrong;
-    elRemaining.textContent = stats.total - stats.answered;
+function renderControls() {
+    const controlsHtml = `
+        <div class="controls">
+            <div class="filter-group">
+                <label>Filter:</label>
+                <select id="filter-select" onchange="changeFilter(this.value)">
+                    <option value="all">All (${quizData.length})</option>
+                    <option value="struggling">Struggling (&lt;50%)</option>
+                    <option value="unanswered">Unanswered</option>
+                    <option value="mastered">Mastered (&gt;90%)</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Sort:</label>
+                <select id="sort-select" onchange="changeSort(this.value)">
+                    <option value="default">Random</option>
+                    <option value="success-rate">Success Rate (Low→High)</option>
+                </select>
+            </div>
+            <button class="btn-reset" onclick="resetStats()">Reset All Stats</button>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforebegin', controlsHtml);
+    updateFilterCounts();
+}
 
-    const percentage = (stats.answered / stats.total) * 100;
+function updateFilterCounts() {
+    const allStats = loadStats();
+    let countAll = quizData.length;
+    let countStruggling = 0;
+    let countUnanswered = 0;
+    let countMastered = 0;
+    
+    quizData.forEach(q => {
+        const stats = allStats[q.id] || { attempts: 0, correct: 0 };
+        const rate = stats.attempts > 0 ? stats.correct / stats.attempts : -1;
+        
+        if (stats.attempts === 0) countUnanswered++;
+        else if (rate < 0.5) countStruggling++;
+        else if (rate > 0.9) countMastered++;
+    });
+    
+    const select = document.getElementById('filter-select');
+    if (select) {
+        select.options[0].text = `All (${countAll})`;
+        select.options[1].text = `Struggling <50% (${countStruggling})`;
+        select.options[2].text = `Unanswered (${countUnanswered})`;
+        select.options[3].text = `Mastered >90% (${countMastered})`;
+    }
+}
+
+window.changeFilter = function(value) {
+    currentFilter = value;
+    reloadQuiz();
+};
+
+window.changeSort = function(value) {
+    currentSort = value;
+    reloadQuiz();
+};
+
+window.resetStats = function() {
+    if (confirm('Are you sure you want to reset all statistics? This cannot be undone.')) {
+        localStorage.removeItem(STORAGE_KEY);
+        reloadQuiz();
+    }
+};
+
+function reloadQuiz() {
+    container.innerHTML = '';
+    applyFilterAndSort();
+    sessionStats = {
+        correct: 0,
+        wrong: 0,
+        total: filteredQuiz.length,
+        answered: 0
+    };
+    updateScoreboard();
+    updateFilterCounts();
+    renderQuestions();
+}
+
+function updateScoreboard() {
+    elCorrect.textContent = sessionStats.correct;
+    elWrong.textContent = sessionStats.wrong;
+    elRemaining.textContent = sessionStats.total - sessionStats.answered;
+
+    const percentage = sessionStats.total > 0 ? (sessionStats.answered / sessionStats.total) * 100 : 0;
     elProgress.style.width = `${percentage}%`;
 }
 
 function renderQuestions() {
-    shuffledQuiz.forEach((q, index) => {
+    if (filteredQuiz.length === 0) {
+        container.innerHTML = '<div class="no-questions">No questions match this filter.</div>';
+        return;
+    }
+    
+    filteredQuiz.forEach((q, index) => {
         const card = document.createElement('div');
         card.className = 'card';
         card.id = `q-${index}`;
+        card.dataset.questionId = q.id;
 
         // Check question type
         if (q.type === 'matching') {
@@ -54,6 +227,18 @@ function renderQuestions() {
 
         container.appendChild(card);
     });
+}
+
+function getStatsHtml(questionId) {
+    const stats = getQuestionStats(questionId);
+    if (stats.attempts === 0) {
+        return '<span class="q-stats unanswered">New</span>';
+    }
+    const rate = Math.round((stats.correct / stats.attempts) * 100);
+    let className = 'neutral';
+    if (rate > 90) className = 'mastered';
+    else if (rate < 50) className = 'struggling';
+    return `<span class="q-stats ${className}">${stats.correct}/${stats.attempts}</span>`;
 }
 
 // ========== MULTIPLE CHOICE RENDERER ==========
@@ -88,7 +273,10 @@ function renderMultipleChoice(card, q, index) {
     card.innerHTML = `
         <div class="q-header">
             <span class="q-title">${q.title}</span>
-            <span class="q-hint">${typeText}</span>
+            <div class="q-meta">
+                ${getStatsHtml(q.id)}
+                <span class="q-hint">${typeText}</span>
+            </div>
         </div>
         <div class="q-text">${q.text}</div>
         ${imagesHtml}
@@ -107,42 +295,36 @@ function renderMultipleChoice(card, q, index) {
 
 // ========== MATCHING QUESTION RENDERER ==========
 function renderMatchingQuestion(card, q, index) {
-    // Shuffle left items and right items independently
     const shuffledLeft = shuffle(q.pairs.map((p, i) => ({ text: p.left, originalIndex: i })));
     const shuffledRight = shuffle(q.pairs.map((p, i) => ({ text: p.right, originalIndex: i })));
     
-    // Add distractors to right side if present (supports both old 'distractors' and new 'distractors_right')
     const rightDistractors = q.distractors_right || q.distractors || [];
     if (rightDistractors.length > 0) {
         rightDistractors.forEach(d => {
-            shuffledRight.push({ text: d, originalIndex: -1 }); // -1 = distractor
+            shuffledRight.push({ text: d, originalIndex: -1 });
         });
         const reshuffledRight = shuffle(shuffledRight);
         shuffledRight.length = 0;
         reshuffledRight.forEach(item => shuffledRight.push(item));
     }
     
-    // Add distractors to left side if present
     const leftDistractors = q.distractors_left || [];
     if (leftDistractors.length > 0) {
         leftDistractors.forEach(d => {
-            shuffledLeft.push({ text: d, originalIndex: -2 }); // -2 = left distractor
+            shuffledLeft.push({ text: d, originalIndex: -2 });
         });
         const reshuffledLeft = shuffle(shuffledLeft);
         shuffledLeft.length = 0;
         reshuffledLeft.forEach(item => shuffledLeft.push(item));
     }
 
-    // Build correct mapping: leftShuffledIndex -> rightShuffledIndex (excluding left distractors)
     const correctMapping = {};
     shuffledLeft.forEach((leftItem, leftIdx) => {
-        // Skip left distractors (originalIndex -2)
         if (leftItem.originalIndex < 0) return;
         const rightIdx = shuffledRight.findIndex(r => r.originalIndex === leftItem.originalIndex);
         correctMapping[leftIdx] = rightIdx;
     });
     
-    // Track which left items are distractors (for display purposes)
     const leftDistractorIndices = [];
     shuffledLeft.forEach((item, idx) => {
         if (item.originalIndex === -2) leftDistractorIndices.push(idx);
@@ -163,7 +345,10 @@ function renderMatchingQuestion(card, q, index) {
     card.innerHTML = `
         <div class="q-header">
             <span class="q-title">${q.title}</span>
-            <span class="q-hint">(Match items)</span>
+            <div class="q-meta">
+                ${getStatsHtml(q.id)}
+                <span class="q-hint">(Match items)</span>
+            </div>
         </div>
         <div class="q-text">${q.text || ''}</div>
         
@@ -186,13 +371,12 @@ function renderMatchingQuestion(card, q, index) {
         </div>
     `;
 
-    // Store user matches
     card.dataset.userMatches = JSON.stringify({});
     card.dataset.selectedLeft = '';
 }
 
 // ========== MATCHING INTERACTION ==========
-let selectedLeft = {}; // Track selected left item per question
+let selectedLeft = {};
 
 window.selectMatchLeft = function(el, qIndex) {
     const card = document.getElementById(`q-${qIndex}`);
@@ -201,10 +385,7 @@ window.selectMatchLeft = function(el, qIndex) {
     const container = document.getElementById(`match-${qIndex}`);
     const leftItems = container.querySelectorAll('.match-left');
     
-    // Deselect all left items
     leftItems.forEach(item => item.classList.remove('selected'));
-    
-    // Select this one
     el.classList.add('selected');
     selectedLeft[qIndex] = el.dataset.idx;
 };
@@ -213,32 +394,26 @@ window.selectMatchRight = function(el, qIndex) {
     const card = document.getElementById(`q-${qIndex}`);
     if (card.classList.contains('answered')) return;
     
-    // Must have a left item selected first
     if (selectedLeft[qIndex] === undefined || selectedLeft[qIndex] === '') return;
 
     const leftIdx = selectedLeft[qIndex];
     const rightIdx = el.dataset.idx;
 
-    // Get current matches
     let userMatches = JSON.parse(card.dataset.userMatches);
     
-    // Check if this right item was already matched to something else
     for (let key in userMatches) {
         if (userMatches[key] === rightIdx) {
-            delete userMatches[key]; // Remove old match
+            delete userMatches[key];
         }
     }
     
-    // Add new match
     userMatches[leftIdx] = rightIdx;
     card.dataset.userMatches = JSON.stringify(userMatches);
 
-    // Clear left selection
     const container = document.getElementById(`match-${qIndex}`);
     container.querySelectorAll('.match-left').forEach(item => item.classList.remove('selected'));
     selectedLeft[qIndex] = '';
 
-    // Redraw lines
     drawLines(qIndex);
     updateMatchStatus(qIndex);
 };
@@ -249,10 +424,8 @@ function drawLines(qIndex) {
     const linesContainer = document.getElementById(`lines-${qIndex}`);
     const userMatches = JSON.parse(card.dataset.userMatches);
 
-    // Clear existing lines
     linesContainer.innerHTML = '';
 
-    // Create SVG
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.style.width = '100%';
     svg.style.height = '100%';
@@ -309,6 +482,7 @@ function updateMatchStatus(qIndex) {
 
 window.checkMatchAnswer = function(qIndex) {
     const card = document.getElementById(`q-${qIndex}`);
+    const questionId = parseInt(card.dataset.questionId);
     const container = document.getElementById(`match-${qIndex}`);
     const btn = card.querySelector('.btn-check');
     const exp = document.getElementById(`exp-${qIndex}`);
@@ -327,18 +501,15 @@ window.checkMatchAnswer = function(qIndex) {
 
     card.classList.add('answered');
 
-    // Check each match
     let allCorrect = true;
     const linesContainer = document.getElementById(`lines-${qIndex}`);
     const svg = linesContainer.querySelector('svg');
 
-    // Check correct mappings (non-distractor left items)
     for (let leftIdx in correctMapping) {
         const expectedRight = correctMapping[leftIdx];
         const userRight = userMatches[leftIdx];
         const isCorrect = (userRight == expectedRight);
 
-        // Color the line
         if (svg) {
             const line = svg.querySelector(`line[data-left="${leftIdx}"]`);
             if (line) {
@@ -347,7 +518,6 @@ window.checkMatchAnswer = function(qIndex) {
             }
         }
 
-        // Color the items
         const leftEl = container.querySelector(`.match-left[data-idx="${leftIdx}"]`);
         const rightEl = container.querySelector(`.match-right[data-idx="${userRight}"]`);
 
@@ -361,13 +531,11 @@ window.checkMatchAnswer = function(qIndex) {
         }
     }
 
-    // Check if user matched any left distractors (always wrong)
     for (let leftIdx in userMatches) {
         if (leftDistractorIndices.includes(parseInt(leftIdx))) {
             allCorrect = false;
             const rightIdx = userMatches[leftIdx];
             
-            // Color the line red
             if (svg) {
                 const line = svg.querySelector(`line[data-left="${leftIdx}"]`);
                 if (line) {
@@ -376,7 +544,6 @@ window.checkMatchAnswer = function(qIndex) {
                 }
             }
             
-            // Mark both items as wrong
             const leftEl = container.querySelector(`.match-left[data-idx="${leftIdx}"]`);
             const rightEl = container.querySelector(`.match-right[data-idx="${rightIdx}"]`);
             leftEl?.classList.add('match-wrong');
@@ -384,13 +551,23 @@ window.checkMatchAnswer = function(qIndex) {
         }
     }
 
-    if (allCorrect) {
-        stats.correct++;
-    } else {
-        stats.wrong++;
+    // Record to localStorage
+    recordAnswer(questionId, allCorrect);
+    
+    // Update the stats display on this card
+    const statsEl = card.querySelector('.q-stats');
+    if (statsEl) {
+        statsEl.outerHTML = getStatsHtml(questionId);
     }
-    stats.answered++;
+
+    if (allCorrect) {
+        sessionStats.correct++;
+    } else {
+        sessionStats.wrong++;
+    }
+    sessionStats.answered++;
     updateScoreboard();
+    updateFilterCounts();
 
     exp.style.display = 'block';
     btn.style.display = 'none';
@@ -416,6 +593,7 @@ window.selectOption = function (el) {
 
 window.checkAnswer = function (index) {
     const card = document.getElementById(`q-${index}`);
+    const questionId = parseInt(card.dataset.questionId);
     const list = document.getElementById(`opt-list-${index}`);
     const options = list.querySelectorAll('.option');
     const btn = card.querySelector('.btn-check');
@@ -441,13 +619,23 @@ window.checkAnswer = function (index) {
     const selectedSorted = [...selectedIndices].sort().toString();
     const isCorrect = (correctSorted === selectedSorted);
 
-    if (isCorrect) {
-        stats.correct++;
-    } else {
-        stats.wrong++;
+    // Record to localStorage
+    recordAnswer(questionId, isCorrect);
+    
+    // Update the stats display on this card
+    const statsEl = card.querySelector('.q-stats');
+    if (statsEl) {
+        statsEl.outerHTML = getStatsHtml(questionId);
     }
-    stats.answered++;
+
+    if (isCorrect) {
+        sessionStats.correct++;
+    } else {
+        sessionStats.wrong++;
+    }
+    sessionStats.answered++;
     updateScoreboard();
+    updateFilterCounts();
 
     options.forEach((opt, i) => {
         if (correctIndices.includes(i)) {
@@ -463,7 +651,7 @@ window.checkAnswer = function (index) {
 
 // Redraw lines on window resize
 window.addEventListener('resize', () => {
-    shuffledQuiz.forEach((q, index) => {
+    filteredQuiz.forEach((q, index) => {
         if (q.type === 'matching') {
             drawLines(index);
         }
