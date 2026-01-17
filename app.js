@@ -13,6 +13,19 @@ const elWrong = document.getElementById('score-wrong');
 const elRemaining = document.getElementById('score-remaining');
 const elProgress = document.getElementById('progress-fill');
 
+// Fisher-Yates shuffle (more reliable than sort random)
+function shuffle(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+// Shuffle questions on load
+const shuffledQuiz = shuffle(quizData);
+
 function init() {
     updateScoreboard();
     renderQuestions();
@@ -28,7 +41,7 @@ function updateScoreboard() {
 }
 
 function renderQuestions() {
-    quizData.forEach((q, index) => {
+    shuffledQuiz.forEach((q, index) => {
         const card = document.createElement('div');
         card.className = 'card';
         card.id = `q-${index}`;
@@ -39,16 +52,30 @@ function renderQuestions() {
         const inputType = isMulti ? 'multi' : 'single';
         const typeText = isMulti ? `(Select ${correctCount})` : '(Select 1)';
 
+        // 2. SHUFFLE OPTIONS AND TRACK CORRECT INDICES
+        // Create array of {text, wasCorrect} objects
+        const optionsWithMeta = q.options.map((opt, i) => ({
+            text: opt,
+            wasCorrect: q.correct.includes(i)
+        }));
+        const shuffledOptions = shuffle(optionsWithMeta);
+
+        // Store new correct indices on the card for later checking
+        const newCorrectIndices = [];
+        shuffledOptions.forEach((opt, i) => {
+            if (opt.wasCorrect) newCorrectIndices.push(i);
+        });
+
         // Image HTML
         let imagesHtml = '';
         q.images.forEach(src => {
             imagesHtml += `<img src="${src}" class="q-img" loading="lazy">`;
         });
 
-        // Options HTML
+        // Options HTML (using shuffled options)
         let optionsHtml = '';
-        q.options.forEach((opt, optIndex) => {
-            const safeOpt = opt.replace(/"/g, '&quot;');
+        shuffledOptions.forEach((opt, optIndex) => {
+            const safeOpt = opt.text.replace(/"/g, '&quot;');
             optionsHtml += `<li class="option" data-idx="${optIndex}" onclick="selectOption(this)">${safeOpt}</li>`;
         });
 
@@ -60,7 +87,7 @@ function renderQuestions() {
             <div class="q-text">${q.text}</div>
             ${imagesHtml}
             
-            <ul class="options" id="opt-list-${index}" data-type="${inputType}">
+            <ul class="options" id="opt-list-${index}" data-type="${inputType}" data-correct="${JSON.stringify(newCorrectIndices)}">
                 ${optionsHtml}
             </ul>
             
@@ -98,12 +125,14 @@ window.selectOption = function (el) {
 };
 
 window.checkAnswer = function (index) {
-    const q = quizData[index];
     const card = document.getElementById(`q-${index}`);
     const list = document.getElementById(`opt-list-${index}`);
     const options = list.querySelectorAll('.option');
     const btn = card.querySelector('.btn-check');
     const exp = document.getElementById(`exp-${index}`);
+
+    // Get correct indices from the shuffled data stored on the list
+    const correctIndices = JSON.parse(list.dataset.correct);
 
     const selectedIndices = [];
     options.forEach((opt, i) => {
@@ -120,7 +149,7 @@ window.checkAnswer = function (index) {
     card.classList.add('answered');
 
     // Compare logic
-    const correctSorted = [...q.correct].sort().toString();
+    const correctSorted = [...correctIndices].sort().toString();
     const selectedSorted = [...selectedIndices].sort().toString();
     const isCorrect = (correctSorted === selectedSorted);
 
@@ -133,7 +162,7 @@ window.checkAnswer = function (index) {
     updateScoreboard();
 
     options.forEach((opt, i) => {
-        if (q.correct.includes(i)) {
+        if (correctIndices.includes(i)) {
             opt.classList.add('correct');
         } else if (opt.classList.contains('selected')) {
             opt.classList.add('wrong');
