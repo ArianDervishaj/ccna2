@@ -46,12 +46,12 @@ let filteredQuiz = [];
 
 function applyFilterAndSort() {
     const allStats = loadStats();
-
+    
     // Filter
     filteredQuiz = quizData.filter(q => {
         const stats = allStats[q.id] || { attempts: 0, correct: 0 };
         const rate = stats.attempts > 0 ? stats.correct / stats.attempts : -1;
-
+        
         switch (currentFilter) {
             case 'struggling':
                 return stats.attempts > 0 && rate < 0.5;
@@ -63,7 +63,7 @@ function applyFilterAndSort() {
                 return true;
         }
     });
-
+    
     // Sort
     if (currentSort === 'success-rate') {
         filteredQuiz.sort((a, b) => {
@@ -79,7 +79,7 @@ function applyFilterAndSort() {
         // Default: shuffle
         filteredQuiz = shuffle(filteredQuiz);
     }
-
+    
     return filteredQuiz;
 }
 
@@ -148,16 +148,16 @@ function updateFilterCounts() {
     let countStruggling = 0;
     let countUnanswered = 0;
     let countMastered = 0;
-
+    
     quizData.forEach(q => {
         const stats = allStats[q.id] || { attempts: 0, correct: 0 };
         const rate = stats.attempts > 0 ? stats.correct / stats.attempts : -1;
-
+        
         if (stats.attempts === 0) countUnanswered++;
         else if (rate < 0.5) countStruggling++;
         else if (rate > 0.9) countMastered++;
     });
-
+    
     const select = document.getElementById('filter-select');
     if (select) {
         select.options[0].text = `All (${countAll})`;
@@ -167,17 +167,17 @@ function updateFilterCounts() {
     }
 }
 
-window.changeFilter = function (value) {
+window.changeFilter = function(value) {
     currentFilter = value;
     reloadQuiz();
 };
 
-window.changeSort = function (value) {
+window.changeSort = function(value) {
     currentSort = value;
     reloadQuiz();
 };
 
-window.resetStats = function () {
+window.resetStats = function() {
     if (confirm('Are you sure you want to reset all statistics? This cannot be undone.')) {
         localStorage.removeItem(STORAGE_KEY);
         reloadQuiz();
@@ -205,7 +205,7 @@ function updateScoreboard() {
 
     const percentage = sessionStats.total > 0 ? (sessionStats.answered / sessionStats.total) * 100 : 0;
     elProgress.style.width = `${percentage}%`;
-
+    
     // Calculate correct percentage based on total questions (unanswered = wrong)
     if (sessionStats.total > 0) {
         const correctPct = Math.round((sessionStats.correct / sessionStats.total) * 100);
@@ -222,7 +222,7 @@ function renderQuestions() {
         container.innerHTML = '<div class="no-questions">No questions match this filter.</div>';
         return;
     }
-
+    
     filteredQuiz.forEach((q, index) => {
         const card = document.createElement('div');
         card.className = 'card';
@@ -306,9 +306,12 @@ function renderMultipleChoice(card, q, index) {
 
 // ========== MATCHING QUESTION RENDERER ==========
 function renderMatchingQuestion(card, q, index) {
-    const shuffledLeft = shuffle(q.pairs.map((p, i) => ({ text: p.left, originalIndex: i })));
-    const shuffledRight = shuffle(q.pairs.map((p, i) => ({ text: p.right, originalIndex: i })));
-
+    const shuffledLeft = shuffle(q.pairs.map((p, i) => ({ text: p.left, originalIndex: i, correctRight: p.right })));
+    
+    // Get unique right values only
+    const uniqueRights = [...new Set(q.pairs.map(p => p.right))];
+    const shuffledRight = shuffle(uniqueRights.map((text, i) => ({ text: text, originalIndex: i })));
+    
     const rightDistractors = q.distractors_right || q.distractors || [];
     if (rightDistractors.length > 0) {
         rightDistractors.forEach(d => {
@@ -318,24 +321,25 @@ function renderMatchingQuestion(card, q, index) {
         shuffledRight.length = 0;
         reshuffledRight.forEach(item => shuffledRight.push(item));
     }
-
+    
     const leftDistractors = q.distractors_left || [];
     if (leftDistractors.length > 0) {
         leftDistractors.forEach(d => {
-            shuffledLeft.push({ text: d, originalIndex: -2 });
+            shuffledLeft.push({ text: d, originalIndex: -2, correctRight: null });
         });
         const reshuffledLeft = shuffle(shuffledLeft);
         shuffledLeft.length = 0;
         reshuffledLeft.forEach(item => shuffledLeft.push(item));
     }
 
+    // Build correct mapping: leftShuffledIndex -> rightShuffledIndex (by matching text)
     const correctMapping = {};
     shuffledLeft.forEach((leftItem, leftIdx) => {
-        if (leftItem.originalIndex < 0) return;
-        const rightIdx = shuffledRight.findIndex(r => r.originalIndex === leftItem.originalIndex);
+        if (leftItem.originalIndex < 0) return; // Skip distractors
+        const rightIdx = shuffledRight.findIndex(r => r.text === leftItem.correctRight);
         correctMapping[leftIdx] = rightIdx;
     });
-
+    
     const leftDistractorIndices = [];
     shuffledLeft.forEach((item, idx) => {
         if (item.originalIndex === -2) leftDistractorIndices.push(idx);
@@ -389,35 +393,31 @@ function renderMatchingQuestion(card, q, index) {
 // ========== MATCHING INTERACTION ==========
 let selectedLeft = {};
 
-window.selectMatchLeft = function (el, qIndex) {
+window.selectMatchLeft = function(el, qIndex) {
     const card = document.getElementById(`q-${qIndex}`);
     if (card.classList.contains('answered')) return;
 
     const container = document.getElementById(`match-${qIndex}`);
     const leftItems = container.querySelectorAll('.match-left');
-
+    
     leftItems.forEach(item => item.classList.remove('selected'));
     el.classList.add('selected');
     selectedLeft[qIndex] = el.dataset.idx;
 };
 
-window.selectMatchRight = function (el, qIndex) {
+window.selectMatchRight = function(el, qIndex) {
     const card = document.getElementById(`q-${qIndex}`);
     if (card.classList.contains('answered')) return;
-
+    
     if (selectedLeft[qIndex] === undefined || selectedLeft[qIndex] === '') return;
 
     const leftIdx = selectedLeft[qIndex];
     const rightIdx = el.dataset.idx;
 
     let userMatches = JSON.parse(card.dataset.userMatches);
-
-    for (let key in userMatches) {
-        if (userMatches[key] === rightIdx) {
-            delete userMatches[key];
-        }
-    }
-
+    
+    // Don't remove existing matches to this right item - allow many-to-one
+    // Just update or add the match for this left item
     userMatches[leftIdx] = rightIdx;
     card.dataset.userMatches = JSON.stringify(userMatches);
 
@@ -491,7 +491,7 @@ function updateMatchStatus(qIndex) {
     statusEl.textContent = `Matched: ${matchedPairs} / ${totalPairs}`;
 }
 
-window.checkMatchAnswer = function (qIndex) {
+window.checkMatchAnswer = function(qIndex) {
     const card = document.getElementById(`q-${qIndex}`);
     const questionId = parseInt(card.dataset.questionId);
     const container = document.getElementById(`match-${qIndex}`);
@@ -546,7 +546,7 @@ window.checkMatchAnswer = function (qIndex) {
         if (leftDistractorIndices.includes(parseInt(leftIdx))) {
             allCorrect = false;
             const rightIdx = userMatches[leftIdx];
-
+            
             if (svg) {
                 const line = svg.querySelector(`line[data-left="${leftIdx}"]`);
                 if (line) {
@@ -554,7 +554,7 @@ window.checkMatchAnswer = function (qIndex) {
                     line.setAttribute('stroke-width', '3');
                 }
             }
-
+            
             const leftEl = container.querySelector(`.match-left[data-idx="${leftIdx}"]`);
             const rightEl = container.querySelector(`.match-right[data-idx="${rightIdx}"]`);
             leftEl?.classList.add('match-wrong');
@@ -564,7 +564,7 @@ window.checkMatchAnswer = function (qIndex) {
 
     // Record to localStorage
     recordAnswer(questionId, allCorrect);
-
+    
     // Update the stats display on this card
     const statsEl = card.querySelector('.q-stats');
     if (statsEl) {
@@ -632,7 +632,7 @@ window.checkAnswer = function (index) {
 
     // Record to localStorage
     recordAnswer(questionId, isCorrect);
-
+    
     // Update the stats display on this card
     const statsEl = card.querySelector('.q-stats');
     if (statsEl) {
