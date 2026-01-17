@@ -1017,11 +1017,11 @@ const quizData = [
       "https://itexamanswers.net/wp-content/uploads/2020/01/CCNA-2-v7-exam-answers-57.png"
     ],
     "options": [
-      "(config)# interface gigabitethernet1/1  (config-if)# switchport mode trunk",
-      "(config)# interface gigabitethernet 1/1   config-if)# no switchport   (config-if)# ip address 192.168.1.2 255.255.255.252",
-      "(config)# interface vlan 1  (config-if)# ip address 192.168.1.2 255.255.255.0  (config-if)# no shutdown",
+      "(config)# interface gigabitethernet1/1  <br>(config-if)# switchport mode trunk",
+      "(config)# interface gigabitethernet 1/1   <br>config-if)# no switchport   <br>(config-if)# ip address 192.168.1.2 255.255.255.252",
+      "(config)# interface vlan 1  <br>(config-if)# ip address 192.168.1.2 255.255.255.0  <br>(config-if)# no shutdown",
       "(config)# ip routing",
-      "(config)# interface fastethernet0/4   (config-if)# switchport mode trunk"
+      "(config)# interface fastethernet0/4  <br>(config-if)# switchport mode trunk"
     ],
     "correct": [
       0,
