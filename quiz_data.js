@@ -778,7 +778,7 @@ const quizData = [
     "distractors": [
       "enter global configuration mode"
     ],
-    "explanation": "The switch boot sequence: 1) POST tests hardware, 2) boot loader loads from ROM, 3) low-level CPU init, 4) flash file system init, 5) IOS loads, 6) control transfers to IOS.",
+    "explanation": "The switch boot sequence: <br>1) POST tests hardware, <br>2) boot loader loads from ROM, <br>3) low-level CPU init, <br>4) flash file system init, <br>5) IOS loads, <br>6) control transfers to IOS.",
     "id": 42
   },
   {
