@@ -1024,7 +1024,7 @@ const quizData = [
       "(config)# interface fastethernet0/4  <br>(config-if)# switchport mode trunk"
     ],
     "correct": [
-      0,
+      1,
       3
     ],
     "explanation": "",
