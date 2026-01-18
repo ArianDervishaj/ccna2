@@ -399,7 +399,7 @@ const quizData = [
   },
   {
     "title": "23. Refer to the exhibit. In addition to static routes directing traffic to networks 10.10.0.0/16 and 10.20.0.0/16, Router HQ is also configured with the following command:",
-    "text": "",
+    "text": "ip route 0.0.0.0 0.0.0.0 serial 0/1/1",
     "images": [
       "https://itexamanswers.net/wp-content/uploads/2020/01/2020-01-31_203919-768x465-1.png"
     ],
